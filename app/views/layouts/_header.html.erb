@@ -9,6 +9,8 @@
     <%= fa_icon 'info-circle' %> <%= t '.about' %>
   <% end %><%= link_to contact_path, class: "#{:active if contact_page?}" do %>
     <%= fa_icon 'envelope' %> <%= t '.contact' %>
+  <% end %><%= link_to privacy_path, class: "#{:active if privacy_page?}" do %>
+    <%= fa_icon 'handshake-o' %> <%= t '.privacy' %>
   <% end %>
 </div>
 

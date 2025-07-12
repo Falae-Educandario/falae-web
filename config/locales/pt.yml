@@ -262,6 +262,25 @@ pt:
       text_p1: '<b>Falaê<sup>&reg;</sup></b> é um aplicativo Android desenvolvido por voluntários da HP do Brasil R&D em parceria com a ONG Educandário - Centro de Reabilitação São João Batista. É um aplicativo de Comunicação Alternativa, que permite pessoas com dificuldades de fala e mobilidade se comunicarem utilizando pictogramas (imagens ou símbolos) que representam palavras (verbos, substantivos, adjetivos etc).'
       text_p2: 'O objetivo principal deste projeto é oferecer o aplicativo, e todos os seus recursos, completamente gratuito. Até então, aplicativos de Comunicação Alternativa conhecidos pela ONG eram pagos e possuíam funcionalidades limitadas (por exemplo: número máximo de pranchas, itens por usuário). Esta é uma barreira para famílias de baixa renda. Desejamos que todos, independentemente de sua renda, possam fazer uso da ferramenta e superar suas dificuldades.'
       login: 'Faça o <a href="/login">login</a> ou <a href="/users/new">cadastre-se</a> para começar!'
+    privacy:
+      title: Falaê App - Política de Privacidade
+      text_p1: Obrigado por utilizar o aplicativo <b>Falaê<sup>&reg;</sup></b>. Sua privacidade é importante para nós e estamos comprometidos em proteger suas informações pessoais. Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações quando você utiliza nosso aplicativo.
+      text_p2: Ao utilizar o Aplicativo, você concorda com a coleta e o uso de informações de acordo com esta política. Caso não concorde com os termos aqui descritos, por favor, não utilize o Aplicativo.
+      item_1:
+        title: 'Informações que Coletamos:'
+        text_sub_1: '<b>Endereço de Email:</b> Coletamos seu endereço de e-mail para criar e gerenciar sua conta de usuário e habilitar a funcionalidade de login.'
+        text_sub_2: "<b>Dados de Uso:</b> Usamos o Google Analytics para coletar informações sobre como você interage com o Aplicativo. Isso inclui dados como os recursos que você usa e outros dados de diagnóstico para nos ajudar a melhorar o desempenho e a experiência do usuário do Aplicativo."
+        text_sub_3: '<b>Dados de Registro:</b> Em caso de erro ou falha durante o uso do Aplicativo, coletamos dados e informações do seu dispositivo. Este registro pode incluir informações como a versão do sistema operacional, a configuração do aplicativo ao utilizar nosso serviço, a hora e a data de seu uso do aplicativo e outras estatísticas.'
+        text_sub_4: '<b>Localização Aproximada:</b> Podemos coletar e usar informações sobre sua localização aproximada (país ou região) para melhorar nosso serviço e para fins analíticos.'
+      item_2:
+        title: Como Usamos Suas Informações
+        description: 'Usamos as informações coletadas para diversos fins:'
+        text_sub_1: '<b>Fornecer e Manter o Aplicativo:</b> Garantir que o Aplicativo funcione corretamente.'
+        text_sub_2: '<b>Melhorar Nossos Serviços:</b> Analisar o uso e as tendências para aprimorar a experiência do usuário e a funcionalidade do aplicativo.'
+        text_sub_3: '<b>monitorar e Analisar:</b> Utilizar ferramentas analíticas de terceiros, como o Google Analytics, para entender como os usuários interagem com o aplicativo.'
+      item_3:
+        title: 'Exclusão de Dados'
+        description: 'Os usuários podem solicitar a exclusão de seus dados enviando um e-mail para voluntarios.educandario@gmail.com.'
   items:
     index:
       delete: Apagar
@@ -307,6 +326,7 @@ pt:
       home: Início
       log_in: Entrar
       log_out: Sair
+      privacy: Privacidade
       register: Cadastrar
       welcome: Bem-vindo
     nav_menu:

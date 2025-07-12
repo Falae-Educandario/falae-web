@@ -19,7 +19,11 @@ module HeaderPagesHelper
     current_page? contact_path
   end
 
+  def privacy_page?
+    current_page? privacy_path
+  end
+
   def header_pages?
-    home_page? || about_page? || contact_page?
+    home_page? || about_page? || contact_page? || privacy_page?
   end
 end
