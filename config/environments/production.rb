@@ -64,24 +64,17 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "falae_production"
 
-  # We need SendGrid API key to configure action_mailer in production
-  raise 'SENDGRID_APIKEY is not set.' if ENV['SENDGRID_APIKEY'].blank?
+  # We need Brevo API key to configure action_mailer in production
+  raise 'BREVO_API_KEY is not set.' if ENV['BREVO_API_KEY'].blank?
 
   #  Set action_mailer configuration for production
   config.action_mailer.perform_caching = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = 'falaeapp.org'
-  config.action_mailer.default_url_options = { host: host }
-  ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
-    :port           => '465',
-    :authentication => :plain,
-    :user_name      => 'apikey',
-    :password       => ENV['SENDGRID_APIKEY'],
-    :domain         => host,
-    :enable_starttls_auto => true,
-    :ssl            => true
+  config.action_mailer.default_url_options = { host: 'falaeapp.org' }
+  config.action_mailer.delivery_method = :brevo
+  config.action_mailer.brevo_settings = {
+    api_key: ENV.fetch('BREVO_API_KEY'),
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
