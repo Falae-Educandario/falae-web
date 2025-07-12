@@ -65,6 +65,8 @@ gem "matrix", "~> 0.4.3"
 # HTTP Accept-Language header filtering library
 gem "http_accept_language", "~> 2.1"
 
+gem 'brevo-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

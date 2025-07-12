@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'noreply@mail.falaeapp.org'
+  default from: 'Falae App <voluntarios.educandario@gmail.com>'
   layout 'mailer'
 end
