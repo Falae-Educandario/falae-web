@@ -7,7 +7,7 @@ Falaê consists of two parts: Android app and the web platform. The web page is 
 
 This repository consists in the web server, that is developed with Ruby on Rails.
 
-The Android App repository can be found [here](https://github.com/marcelorcorrea/falae-android).
+The Android App repository can be found [here](https://github.com/falae-educandario/falae-android).
 
 Feel free to fork or contribute this project.
 
