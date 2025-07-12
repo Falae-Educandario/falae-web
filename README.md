@@ -18,7 +18,7 @@ Feel free to fork or contribute this project.
 
 ## Local setup
 
-Falaê is currently using ruby 3.0.6. It is recommend to use *rbenv* or *rvm* and install the version.
+Falaê is currently using ruby 3.1.7. It is recommend to use *rbenv* or *rvm* and install the version.
 
 #### Install rbenv
 
@@ -42,13 +42,13 @@ cd .
 Using rbenv
 
 ```
-rbenv install 3.0.6
+rbenv install 3.1.7
 ```
 
 Using rvm
 
 ```
-rvm install ruby-3.0.6
+rvm install ruby-3.1.7
 ```
 
 #### Set FALAE_IMAGES_PATH environment variable

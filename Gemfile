@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.6'
+ruby '3.1.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.4'
@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.15'
 
+gem 'concurrent-ruby', '1.3.4'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -51,11 +53,14 @@ gem "rack-attack", "~> 5.0"
 # File attachment management for ActiveRecord
 gem 'kt-paperclip', '~> 7.2.0'
 
-gem 'will_paginate', '~> 3.1.6'
+gem 'will_paginate', '~> 3.3.1'
 
 gem 'rufus-scheduler', '~> 3.4.2'
 
 gem 'prawn', '~> 2.4.0'
+
+# Add matrix gem since it was removed from ruby default gems
+gem "matrix", "~> 0.4.3"
 
 # HTTP Accept-Language header filtering library
 gem "http_accept_language", "~> 2.1"
@@ -65,7 +70,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1'
 end
 
 group :development do
@@ -78,6 +83,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+  gem 'bundle-audit', require: false
   gem 'brakeman', require: false
 end
 
