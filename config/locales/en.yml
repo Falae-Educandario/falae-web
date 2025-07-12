@@ -244,7 +244,7 @@ en:
       ngo_title: 'About the NGO Educandário - Centro de Reabilitação São João Batista'
       ngo_text_p1: 'The NGO whose work has inspired us was founded in 1939 to provide care for children with poliomyelitis. Today the NGO serves children and teenagers with multiple disabilities. Its mission is '
       ngo_text_p1_quote: '“to promote the rehabilitation and social integration of children and teenagers with disabilities, providing them with adequate treatment and education, aiming a better quality of life and empowering them as citizens”.'
-      ngo_text_p2: "It is an institution where children and teens have several specific classes and health treatments according to their needs entirely for free. The institution is pioneer in using Alternative Communication methods for literacy and education, promoting a distinguished opportunity for those who can’t speak to learn and express themselves."
+      ngo_text_p2: "It is an institution where children and teens have several specific classes and health treatments according to their needs entirely for free. The institution is pioneer in using Alternative Communication methods for literacy and education, promoting a distinguished opportunity for those who can't speak to learn and express themselves."
       partners_title: Partners
       partners_devopers: 'In order to make the application available for free, we partnered with <a href="https://devopers.com.br/">Devopers</a>, a company specialized in providing cloud hosting solutions, which enabled the entire web infrastructure free of charge.'
       partners_crialab: 'The visual identity of the application was developed by <a href="http://www.pucrs.br/tecnopuc/crialab/">Crialab</a>, the Laboratory of Creativity of TECNOPUC.'
@@ -259,9 +259,28 @@ en:
       ngo_website: 'For more information, please visit the official website <a href="http://www.educandario.org.br">here</a>.'
     home:
       title: Falaê
-      text_p1: '<b>Falaê<sup>&reg;</sup></b> is an Android application developed by HP volunteers from Brazil R&D in partnership with the NGO Educandário – Centro de Reabilitação São João Batista. It is an Alternative Communication app, that allows people with speech and mobility impairments to communicate by using pictograms (images or symbols) that represent words (verbs, nouns, adjectives etc).'
+      text_p1: '<b>Falaê<sup>&reg;</sup></b> is an Android application developed by HP volunteers from Brazil R&D in partnership with the NGO Educandário - Centro de Reabilitação São João Batista. It is an Alternative Communication app, that allows people with speech and mobility impairments to communicate by using pictograms (images or symbols) that represent words (verbs, nouns, adjectives etc).'
       text_p2: 'The main goal of this project is to make the app completely free and unlimited. Up to now, all of the Alternative Communication apps known by the NGO are paid and have limited functionalities. This is a barrier to low-income families. We wish to enable everyone, regardless of their income, to use this resource and overcome their difficulties.'
       login: 'Please <a href="/login">login</a> or <a href="/users/new">register</a> to get started!'
+    privacy:
+      title: Falaê App - Privacy Policy
+      text_p1: Thank you for using <b>Falaê<sup>&reg;</sup></b> application. Your privacy is important to us, and we are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and safeguard your information when you use our App.
+      text_p2: By using the App, you agree to the collection and use of information in accordance with this policy. If you do not agree with the terms outlined here, please do not use the App.
+      item_1:
+        title: 'Information We Collect:'
+        text_sub_1: '<b>Email Address:</b> We collect your email address to create and manage your user account, enable login functionality.'
+        text_sub_2: "<b>Usage Data:</b> We use Google Analytics to collect information about how you interact with the App. This includes data such as the features you use, and other diagnostic data to help us improve the App's performance and user experience."
+        text_sub_3: '<b>Log Data:</b> In the event of an error or crash while using the App, we collect data and information from your device. This log may include information such as operating system version, the configuration of the app when utilizing our service, the time and date of your use of the app, and other statistics.'
+        text_sub_4: '<b>Approximate Location:</b> We may collect and use information about your approximate location (country or region) to improve our service, and for analytics purposes.'
+      item_2:
+        title: How We Use Your Information
+        description: 'We use the collected information for various purposes:'
+        text_sub_1: '<b>To Provide and Maintain the App:</b> Ensuring the App functions correctly.'
+        text_sub_2: '<b>To Improve Our Services:</b> Analyzing usage and trends to enhance user experience and the functionality of the app.'
+        text_sub_3: '<b>To Monitor and Analyze:</b> Using third-party analytics tools like Google Analytics to understand how users engage with the App.'
+      item_3:
+        title: Data Deletion
+        description: 'Users can ask for data deletion sending an e-mail to voluntarios.educandario@gmail.com.'
   items:
     index:
       delete: Delete
@@ -307,6 +326,7 @@ en:
       home: Home
       log_in: Login
       log_out: Logout
+      privacy: Privacy
       register: Register
       welcome: Welcome
     nav_menu:

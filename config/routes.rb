@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/home', to: 'header_pages#home'
   get '/about', to: 'header_pages#about'
   get '/contact', to: 'header_pages#contact'
+  get '/privacy', to: 'header_pages#privacy'
   post '/csp-report', to: 'csp_reports#create'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

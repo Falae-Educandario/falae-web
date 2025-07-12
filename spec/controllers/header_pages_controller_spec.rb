@@ -46,4 +46,18 @@ RSpec.describe HeaderPagesController, type: :controller do
       expect(response).to be_successful
     end
   end
+
+    describe 'GET #privacy' do
+    before do
+      get :privacy
+    end
+
+    it 'renders the privacy template' do
+      expect(response).to render_template('privacy')
+    end
+
+    it 'should respond with success' do
+      expect(response).to be_successful
+    end
+  end
 end
