@@ -71,17 +71,10 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = 'falaeapp.org'
-  config.action_mailer.default_url_options = { host: host }
-  ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
-    :port           => '465',
-    :authentication => :plain,
-    :user_name      => 'apikey',
-    :password       => ENV['SENDGRID_APIKEY'],
-    :domain         => host,
-    :enable_starttls_auto => true,
-    :ssl            => true
+  config.action_mailer.default_url_options = { host: 'falaeapp.org' }
+  config.action_mailer.delivery_method = :brevo
+  config.action_mailer.brevo_settings = {
+    api_key: ENV.fetch('BREVO_API_KEY'),
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
