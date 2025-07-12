@@ -103,7 +103,7 @@ namespace :pictograms do
   end
 
   def download_samples()
-    tmp_load_folder = '/tmp/pictograms'
+    tmp_load_folder = "#{Rails.root}/storage/pictograms"
 
     pictograms = [
       { name: 'oi', url: 'http://www.arasaac.org/repositorio/thumbs/10/200/6/6522.png' },
