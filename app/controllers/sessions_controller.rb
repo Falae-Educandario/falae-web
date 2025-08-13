@@ -15,14 +15,14 @@ class SessionsController < ApplicationController
       else
         flash.now[:warning] = t 'user_mailer.account_activation.notactivated'
         respond_to do |format|
-          format.html { render :new }
+          format.html { render :new, status: :forbidden }
           format.json { unauthorized_json_access }
         end
       end
     else
       flash.now[:alert] = t 'flash.error.wrong_email_password'
       respond_to do |format|
-        format.html { render :new }
+        format.html { render :new, status: :bad_request }
         format.json { unauthorized_json_access }
       end
     end

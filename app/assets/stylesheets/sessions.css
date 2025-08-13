@@ -1,0 +1,14 @@
+.login .login-error {
+  background-color: #FFB6C1;
+  border-radius: 0.25em;
+  border: 0.125em solid red;
+  padding: 0.5em;
+  text-align: center;
+  visibility: hidden;
+}
+.login .form-box {
+  width: 20em;
+}
+.login .visible {
+  visibility: visible;
+}

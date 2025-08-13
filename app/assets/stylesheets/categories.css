@@ -1,0 +1,29 @@
+.adjective {
+  color: #FFF;
+  background-color: #0000FF;
+}
+
+.greetings-social-expressions {
+  color: #000;
+  background-color: #CC6699;
+}
+
+.noun {
+  color: #000;
+  background-color: #FFA500;
+}
+
+.other {
+  color: #000;
+  background-color: #FFFFFF;
+}
+
+.subject {
+  color: #000;
+  background-color: #E6E600;
+}
+
+.verb {
+  color: #000;
+  background-color: #009900;
+}

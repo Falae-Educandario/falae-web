@@ -1,0 +1,46 @@
+<div class="items">
+  <p id="notice"><%= notice %></p>
+
+  <div class="button-bar">
+    <%= link_to user_item_path(@user, @item), method: :delete, class: 'button-box destroy',
+      data: { confirm: @item.pages.any? ? destroy_item_confirmation_message(@item) : nil } do %>
+      <%= fa_icon 'trash-o' %><%= t '.destroy' %>
+    <% end %>
+
+    <%= link_to edit_user_item_path(@user, @item), class: 'button-box',
+      data: { confirm: @item.pages.any? ? edit_item_confirmation_message(@item) : nil } do
+    %>
+      <%= fa_icon 'edit' %><%= t '.edit' %>
+    <% end %>
+
+    <%= link_to private_items_user_path(@user), class: 'button-box' do %>
+      <%= fa_icon 'arrow-left' %><%= t '.back' %>
+    <% end %>
+
+    <%= link_to pdf_user_item_path(@user, @item, format: :pdf), class: 'button-box' do %>
+      <%= fa_icon 'print' %><%= t '.print' %>
+    <% end %>
+  </div>
+
+  <p>
+    <strong><%= Item.human_attribute_name :name %>:</strong>
+    <%= @item.name %>
+  </p>
+
+  <p>
+    <strong><%= Item.human_attribute_name :speech %>:</strong>
+    <%= @item.speech %>
+  </p>
+
+  <p>
+    <strong><%= Category.model_name.human %>:</strong>
+    <%= @item.category.description %>
+  </p>
+
+  <p>
+    <strong><%= Item.human_attribute_name :image %>:</strong>
+    <div class="item-image">
+      <%= image_tag @item.image.image.url, alt: @item.name %>
+    </div>
+  </p>
+</div>

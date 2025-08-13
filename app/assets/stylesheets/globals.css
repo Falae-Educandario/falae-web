@@ -1,0 +1,103 @@
+#global .overlay {
+  background-color: rgba(0, 0, 0, 0.25);
+  bottom: 0;
+  display: none;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+
+#global .modal {
+  display: none;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+#global .modal .container {
+  background-color: white;
+  margin: 32px auto;
+  overflow: auto;
+  position: relative;
+  width: 950px;
+}
+#global .modal .container .title {
+  color: #008383;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 700;
+  text-align: center;
+}
+#global .modal .container .close {
+  background: none;
+  border: none;
+  color: #EF4E22;
+  cursor: pointer;
+  font-size: 28px;
+  margin: 14px;
+  position: absolute;
+  right: 0;
+}
+#global .modal .container .close .hover {
+  display: none;
+}
+#global .modal .container .close:hover .default {
+  display: none;
+}
+#global .modal .container .close:hover .hover {
+  display: inline-block;
+}
+
+
+#global .modal.image-cropper .container .content {
+  display: flex;
+  justify-content: center;
+}
+
+
+#global .loading {
+  align-items: center;
+  bottom: 0;
+  color: #E8E8E8;
+  display: none;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+
+/* Remove or move to other files */
+.global .modal .container .img-crop-container {
+  border: 1px solid #AAA;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+  display: inline-block;
+  max-width: 80%;
+  text-align: center;
+}
+
+.global-modal .container button {
+  background-color: #008383;
+  border-radius: 0.25em;
+  border: none;
+  box-shadow: 0 0 0.25em 0.125px #008383;
+  color: white;
+  display: block;
+  margin: 2em auto;
+  padding: 0.5em 2em;
+}
+
+.global-modal .container button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.global-modal .container button i {
+  padding-right: 0.5em;
+}

@@ -1,5 +1,5 @@
 <% if model.errors.any? %>
-  <div class="errors" xmlns="http://www.w3.org/1999/html">
+  <div class="errors">
     <div class="error-wrapper">
       <span class="message"><%= t 'activerecord.errors.template.header',
         model: model.model_name.human, count: model.errors.count %></span>

@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
+  allow_browser versions: :modern
+
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
   include ApplicationHelper
   include SessionsHelper
@@ -21,7 +24,7 @@ class ApplicationController < ActionController::Base
     return true if current_user?(User.find_by(id: id))
 
     respond_to do |format|
-      format.html { redirect_to root_path }
+      format.html { redirect_to root_path, status: :unauthorized }
       format.json { unauthorized_json_access }
     end
   end

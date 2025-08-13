@@ -1,0 +1,31 @@
+.user .user-photo {
+  border-radius: 4px;
+  border: 2px solid #11626B;
+  float: left;
+  height: 180px;
+  margin-right: 20px;
+  max-height: 180px;
+  max-width: 150px;
+  width: 150px;
+}
+.user .user-photo img {
+  height: 100%;
+  width: 100%;
+}
+.user #user-photo-container {
+  text-align: center;
+}
+.user #user-photo-container #user-photo-wrapper {
+  border-radius: 4px;
+  border: 2px solid #AAA;
+  display: inline-block;
+  height: 180px;
+  max-height: 184px;
+  max-width: 154px;
+  overflow: hidden;
+  width: 150px;
+}
+.user #user-photo-container #user-photo-wrapper #user-photo {
+  height: 180px;
+  width: 150px;
+}

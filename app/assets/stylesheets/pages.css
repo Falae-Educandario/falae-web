@@ -1,0 +1,358 @@
+.pages .tab-bar {
+  height: 2em;
+  position: relative;
+  width: 100%;
+}
+.pages .tab-bar .tab {
+  border-bottom: 0.125em solid #11626B;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 4px 8px;
+  position: absolute;
+  width: 50%;
+}
+.pages .tab-bar .tab.active {
+  border-left: 0.125em solid #11626B;
+  border-right: 0.125em solid #11626B;
+  border-top: 0.125em solid #11626B;
+  border-bottom: none;
+  border-top-left-radius: 0.25em;
+  border-top-right-radius: 0.25em;
+}
+.pages .tab-bar .tab.page-mobile-tab {
+  left: 50%;
+}
+.pages .page-items {
+  margin-top: 8px;
+}
+.pages .page-items .page-row {
+  align-items: flex-end;
+  display: flex;
+  margin: 0 auto;
+  width: 770px;
+}
+.pages .page-items .page-row .items-list-item-name,
+.pages .page-items .page-row .items-list-item-image {
+  pointer-events: none;
+}
+.pages .page-items .page-row .over {
+  border: 0.125em dashed black;
+}
+.pages .page-items .page-row .items-list-item-menu-options {
+  border: 1px solid grey;
+  display: none;
+  background-color: white;
+  left: 12px;
+  padding: 4px 0;
+  position: absolute;
+  top: 12px;
+  white-space: nowrap;
+  z-index: 1;
+}
+.pages .page-items .page-row .items-list-item-menu-options .edit,
+.pages .page-items .page-row .items-list-item-menu-options .remove {
+  display: block;
+}
+.pages .page-items .page-row .items-list-item-menu-options a {
+  color: #606060;
+  padding: 0.25em 0.75em 0.25em 0.5em;
+  text-align: left;
+  text-decoration: none;
+}
+.pages .page-items .page-row .items-list-item-menu-options a:hover.edit {
+  color: #008383;
+}
+.pages .page-items .page-row .items-list-item-menu-options a:hover.remove {
+  color: #EF4E22;
+}
+.pages .page-items .page-row .items-list-item-menu-options a i {
+  padding-right: 8px;
+}
+.pages .page-items .page-row .items-list-item-menu:hover > .items-list-item-menu-options {
+  display: inline-block;
+}
+.pages .page-items .page-row .link-to {
+  position: absolute;
+  right: 0.125em;
+  top: 0.0625em;
+}
+.pages .page-items .page-row.columns-1 {
+  width: 154px;
+}
+.pages .page-items .page-row.columns-2 {
+  width: 308px;
+}
+.pages .page-items .page-row.columns-3 {
+  width: 462px;
+}
+.pages .page-items .page-row.columns-4 {
+  width: 616px;
+}
+.pages .page-items .page-row.columns-6 {
+  width: 756px;
+}
+.pages .page-items .page-row.columns-6 .items-list-item {
+  height: 148px;
+  margin: 5px;
+  width: 116px;
+}
+.pages .page-items .page-row.columns-7 {
+  width: 756px;
+}
+.pages .page-items .page-row.columns-7 .items-list-item {
+  height: 124px;
+  margin: 5px;
+  width: 98px;
+}
+.pages .page-items .page-row.columns-8 {
+  width: 768px;
+}
+.pages .page-items .page-row.columns-8 .items-list-item {
+  font-size: 12px;
+  height: 110px;
+  margin: 5px;
+  width: 86px;
+}
+.pages .page-items .page-row.columns-9 {
+  width: 765px;
+}
+.pages .page-items .page-row.columns-9 .items-list-item {
+  font-size: 12px;
+  height: 95px;
+  margin: 5px;
+  width: 75px;
+}
+.pages .page-items .page-row.columns-10 {
+  width: 770px;
+}
+.pages .page-items .page-row.columns-10 .items-list-item {
+  font-size: 12px;
+  height: 85px;
+  margin: 5px;
+  width: 67px;
+}
+.pages .page-items .add-item-page {
+  display: inline-block;
+}
+.pages .page-items .add-button {
+  background-color: white;
+  color: #606060;
+  font-size: 48px;
+  padding: 0;
+}
+.pages .page-items .add-button:hover {
+  color: #008383;
+  cursor: pointer;
+}
+.pages .page-items .add-button:focus {
+  outline: none;
+}
+.pages .page-items hr:last-child {
+  display: none;
+}
+
+/* .overlay {
+  z-index: 3;
+} */
+.overlay .edit-item .form-box, .overlay #search-items-result .form-box {
+  width: 35em;
+}
+.overlay .search-item .form-box {
+  width: 25em;
+}
+.overlay .search-item .form-box #search-items {
+  text-align: left;
+}
+.overlay .edit-item, .overlay .search-item, .overlay .item-result,
+.overlay .export-page, .overlay .import,
+.overlay .export-spreadsheet {
+  background-color: white;
+  margin: 2em auto;
+  overflow: auto;
+  position: relative;
+  width: 950px;
+}
+.overlay .edit-item .form-box, .overlay .search-item .form-box,
+.overlay .item-result .form-box,
+.overlay .export-page .form-box, .overlay .import .form-box,
+.overlay .export-spreadsheet .form-box {
+  text-align: center;
+}
+.overlay .edit-item .form-box #import,
+.overlay .search-item .form-box #import,
+.overlay .item-result .form-box #import,
+.overlay .export-page .form-box #import,
+.overlay .import .form-box #import,
+.overlay .export-spreadsheet .form-box #import {
+  text-align: left;
+}
+.overlay .edit-item .form-box .fields,
+.overlay .edit-item .form-box .items,
+.overlay .search-item .form-box .fields,
+.overlay .search-item .form-box .items,
+.overlay .item-result .form-box .fields,
+.overlay .item-result .form-box .items,
+.overlay .export-page .form-box .fields,
+.overlay .export-page .form-box .items,
+.overlay .import .form-box .fields,
+.overlay .import .form-box .items,
+.overlay .export-spreadsheet .form-box .fields,
+.overlay .export-spreadsheet .form-box .items {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+.overlay .edit-item .form-box .fields .link-to,
+.overlay .edit-item .form-box .items .link-to,
+.overlay .search-item .form-box .fields .link-to,
+.overlay .search-item .form-box .items .link-to,
+.overlay .item-result .form-box .fields .link-to,
+.overlay .item-result .form-box .items .link-to,
+.overlay .export-page .form-box .fields .link-to,
+.overlay .export-page .form-box .items .link-to,
+.overlay .import .form-box .fields .link-to,
+.overlay .import .form-box .items .link-to,
+.overlay .export-spreadsheet .form-box .fields .link-to,
+.overlay .export-spreadsheet .form-box .items .link-to {
+  position: absolute;
+  right: 0.125em;
+  top: 0.0625em;
+}
+.overlay .edit-item .form-box .fields,
+.overlay .search-item .form-box .fields,
+.overlay .item-result .form-box .fields,
+.overlay .export-page .form-box .fields,
+.overlay .import .form-box .fields,
+.overlay .export-spreadsheet .form-box .fields {
+  width: 20em;
+}
+.overlay .edit-item .form-box .items-list-item,
+.overlay .search-item .form-box .items-list-item,
+.overlay .item-result .form-box .items-list-item,
+.overlay .export-page .form-box .items-list-item,
+.overlay .import .form-box .items-list-item,
+.overlay .export-spreadsheet .form-box .items-list-item {
+  height: 208px;
+  width: 164px;
+}
+.overlay .edit-item .form-box .items-list-item .items-list-item-menu,
+.overlay .search-item .form-box .items-list-item .items-list-item-menu,
+.overlay .item-result .form-box .items-list-item .items-list-item-menu,
+.overlay .export-page .form-box .items-list-item .items-list-item-menu,
+.overlay .import .form-box .items-list-item .items-list-item-menu,
+.overlay .export-spreadsheet .form-box .items-list-item .items-list-item-menu {
+  display: none;
+}
+.overlay .edit-item .item-title, .overlay .edit-item .export-title,
+.overlay .edit-item .import-title, .overlay .search-item .item-title,
+.overlay .search-item .export-title, .overlay .search-item .import-title,
+.overlay .item-result .item-title, .overlay .item-result .export-title,
+.overlay .item-result .import-title, .overlay .export-page .item-title,
+.overlay .export-page .export-title, .overlay .export-page .import-title,
+.overlay .import .item-title, .overlay .import .export-title,
+.overlay .import .import-title, .overlay .export-spreadsheet .item-title,
+.overlay .export-spreadsheet .export-title, .overlay .export-spreadsheet .import-title {
+  color: #008383;
+  font-size: 1.5em;
+  font-style: italic;
+  font-weight: 700;
+  text-align: center;
+}
+.overlay .edit-item .close, .overlay .search-item .close, .overlay .item-result .close,
+.overlay .export-page .close, .overlay .import .close,
+.overlay .export-spreadsheet .close {
+  background: none;
+  border: none;
+  color: #EF4E22;
+  cursor: pointer;
+  font-size: 1.75em;
+  margin: 0.5em;
+  position: absolute;
+  right: 0;
+}
+.overlay .edit-item .close .hover, .overlay .search-item .close .hover,
+.overlay .item-result .close .hover, .overlay .export-page .close .hover,
+.overlay .import .close .hover,
+.overlay .export-spreadsheet .close .hover {
+  display: none;
+}
+.overlay .edit-item .close:hover .default,
+.overlay .search-item .close:hover .default,
+.overlay .item-result .close:hover .default,
+.overlay .export-page .close:hover .default,
+.overlay .import .close:hover .default,
+.overlay .export-spreadsheet .close:hover .default {
+  display: none;
+}
+.overlay .edit-item .close:hover .hover,
+.overlay .search-item .close:hover .hover,
+.overlay .item-result .close:hover .hover,
+.overlay .export-page .close:hover .hover,
+.overlay .import .close:hover .hover,
+.overlay .export-spreadsheet .close:hover .hover {
+  display: inline-block;
+}
+.overlay .edit-item button[type=submit][disabled],
+.overlay .edit-item button[type=submit][disabled]:hover,
+.overlay .search-item button[type=submit][disabled],
+.overlay .search-item button[type=submit][disabled]:hover,
+.overlay .item-result button[type=submit][disabled],
+.overlay .item-result button[type=submit][disabled]:hover,
+.overlay .export-page button[type=submit][disabled],
+.overlay .export-page button[type=submit][disabled]:hover,
+.overlay .import button[type=submit][disabled],
+.overlay .import button[type=submit][disabled]:hover,
+.overlay .export-spreadsheet button[type=submit][disabled],
+.overlay .export-spreadsheet button[type=submit][disabled]:hover {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+.overlay .edit-item #search-items-result .private input[type=text],
+.overlay .search-item #search-items-result .private input[type=text],
+.overlay .item-result #search-items-result .private input[type=text],
+.overlay .export-page #search-items-result .private input[type=text],
+.overlay .import #search-items-result .private input[type=text],
+.overlay .export-spreadsheet #search-items-result .private input[type=text] {
+  border: none;
+  font-size: 14px;
+  padding: 0.5em 0;
+}
+.overlay .edit-item .no-items-found, .overlay .search-item .no-items-found,
+.overlay .item-result .no-items-found, .overlay .export-page .no-items-found,
+.overlay .import .no-items-found, .overlay .export-spreadsheet .no-items-found {
+  color: #EF4E22;
+  font-style: italic;
+  text-align: center;
+}
+
+/* NEW CSS */
+#search-item-form {
+  display: none;
+}
+
+.search-form .form-box.search {
+  width: 400px;
+}
+
+#search-items-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+#search-items-results .item.form-box {
+  width: 396px;
+}
+
+#search-items-results .fields.private input[type="text"],
+#search-items-results .fields.private select {
+  appearance: none;
+  border: none;
+  font-size: 14px;
+  padding: 0 0 8px 0;
+}
+
+/* #search-items-results .fields.private .field > * {
+  display: inline;
+} */

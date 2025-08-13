@@ -1,0 +1,15 @@
+<%# TODO: Check a way of let this generic %>
+<div class="modal-container">
+  <div class="modal">
+    <a class="close">
+      <%= fa_icon 'times-circle-o', class: :default %>
+      <%= fa_icon 'times-circle', class: :hover %>
+    </a>
+
+    <p class="title"><%= title %></p>
+    <%# TODO: Usando overlay-content pq somente content pega estilo global %>
+    <div class="content">
+      <%= yield %>
+    </div>
+  </div>
+</div>

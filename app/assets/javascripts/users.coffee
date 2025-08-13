@@ -4,21 +4,6 @@
 
 document.addEventListener 'turbolinks:load', ->
 
-  userPhotoInput = document.getElementById 'user_photo'
-  if userPhotoInput
-  # add event listener to load user photo preview on form
-    userPhotoInput.addEventListener 'change', (e) ->
-      files = e.target.files
-      photo = files[0]
-      if photo && /.*\.(jpe?g|png|gif)/i.test photo.name
-        reader = new FileReader()
-        reader.readAsDataURL photo
-        reader.onload = (file) -> loadPreview(file)
-      else
-        inputFileButton = document.getElementsByClassName('wrapper-custom-input-file')[0]
-        unsuportedPhotoTypeText = inputFileButton.dataset.unsupportedPhotoType
-        alert unsuportedPhotoTypeText
-
   editCheckBox = document.getElementById 'edit_sensitive_data'
   if editCheckBox
     editCheckBox.addEventListener 'click', (e) ->
@@ -33,6 +18,21 @@ document.addEventListener 'turbolinks:load', ->
           elem.style.color = '#AAAAAA'
           input.disabled = true
           input.style.color = '#AAAAAA'
+
+  userPhotoInput = document.getElementById 'user_photo'
+  if userPhotoInput
+  # add event listener to load user photo preview on form
+    userPhotoInput.addEventListener 'change', (e) ->
+      files = e.target.files
+      photo = files[0]
+      if photo && /.*\.(jpe?g|png|gif)/i.test photo.name
+        reader = new FileReader()
+        reader.readAsDataURL photo
+        reader.onload = (file) -> loadPreview(file)
+      else
+        inputFileButton = document.getElementsByClassName('wrapper-custom-input-file')[0]
+        unsuportedPhotoTypeText = inputFileButton.dataset.unsupportedPhotoType
+        alert unsuportedPhotoTypeText
 
   loadPreview = (file) ->
     imgBase64 = new Image()

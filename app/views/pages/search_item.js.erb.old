@@ -1,0 +1,53 @@
+$("#search-items-result").empty();
+
+$("<%= escape_javascript(render 'pages/search_result', items: items) %>")
+  .appendTo("#search-items-result");
+
+$("#loading-layer") && $("#loading-layer").remove();
+
+
+{
+  var itemsResult = document.getElementById('search-items-result');
+  var itemNames = itemsResult.querySelectorAll('input[name="item[name]"]');
+
+  for(var i = 0; i < itemNames.length; i++) {
+    itemNames[i].addEventListener('keyup', function (ev) {
+      var itemResult = ev.target.closest('.item-result');
+      var itemName = itemResult.querySelector('.items-list-item-name span');
+      itemName.innerText = ev.target.value;
+    });
+  }
+
+  var itemsCategory = itemsResult.querySelectorAll('select[name="item[category_id]"]');
+  var classNames = {};
+  <% Category.all.each do |ctgy| %>
+    classNames[<%= ctgy.id %>] = "<%= CategoriesHelper::css_class_name(ctgy) %>";
+  <% end %>
+  for(var i = 0; i < itemsCategory.length; i++) {
+    itemsCategory[i].addEventListener('change', function (ev) {
+      var itemResult = ev.target.closest('.item-result');
+      var itemCategory = itemResult.querySelector('.items-list-item');
+      itemCategory.className = 'items-list-item ' + classNames[ev.target.value];
+    });
+  }
+}
+
+$('.paginate a').on('click', (e) => {
+  const loadingLayer = $('<div/>', {
+    id: 'paginate-loading-layer',
+    append: $('<div/>', {
+      class: 'fa fa-spinner fa-pulse fa-3x fa-fw',
+    })
+  }).appendTo($('body'));
+
+  $('.overlay').animate({
+      scrollTop: 292,
+    }, 750, () => $("#paginate-loading-layer").remove());
+
+  $.ajax({
+    type: "GET",
+    url: $(e.target).attr("href"),
+    dataType: "script"
+  });
+  return false;
+});

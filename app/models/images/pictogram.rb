@@ -27,6 +27,10 @@ class Pictogram < Image
     true
   end
 
+  def public?
+    true
+  end
+
   private
 
   def image_basename

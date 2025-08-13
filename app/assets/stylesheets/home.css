@@ -1,0 +1,14 @@
+#about, #contact, #home, #privacy {
+  padding: 0 16px;
+  text-align: justify;
+}
+
+#about .partners-logos {
+  margin: 2em auto;
+  text-align: center;
+}
+#about .partners-logos .partner-logo {
+  margin: 0 25px;
+  vertical-align: middle;
+  width: 250px;
+}

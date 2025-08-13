@@ -1,0 +1,16 @@
+<% if items.empty? %>
+  <p class="no-items-found">
+    <%= t '.no_item_found' %>
+  </p>
+<% else %>
+  <% items.each do |item| %>
+    <div class="item">
+      <%= render 'items/form_v2', item: item, search_result: true %>
+    </div>
+  <% end %>
+<% end %>
+
+<div data-controller="will-paginate">
+  <%= will_paginate items, param_name: :offset, class: 'paginate' %>
+</div>
+<%#= will_paginate items, param_name: :offset, class: 'paginate', params: { name: params[:name] } %>

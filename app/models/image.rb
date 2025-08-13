@@ -49,6 +49,10 @@ class Image < ApplicationRecord
     false
   end
 
+  def public?
+    false
+  end
+
   def private?
     false
   end

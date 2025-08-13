@@ -8,7 +8,6 @@ class SpreadsheetsController < ApplicationController
       edit
       update
       destroy
-      import_spreadsheet
       add_page
       export
       export_data

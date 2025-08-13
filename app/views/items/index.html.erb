@@ -1,47 +1,54 @@
-<div class="items">
+<div class="items" data-controller="items"
+  data-items-userid-value="<%= @user.id %>"
+  data-items-global-outlet="#global"
+  data-action="item:upsert->items#update-list-items"
+>
+  <%# TODO: Replace notice with "toast notification" %>
   <% if notice %>
     <p id="notice"><%= notice %></p>
   <% end %>
 
+  <%# TODO: Move to action bar partial %>
   <div class="actions-bar">
-    <% if params[:name] %>
-      <div id="item-search-results">
-        <span><%= t '.filter.noun' %>:</span>
-        <%= link_to private_items_user_path(@user), class: 'button-box' do %>
-          <%= fa_icon 'remove' %><%= t '.filter.name' %>: <%= params[:name] %>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="search" id="items-search-area">
-        <%= text_field_tag :name%>
+    <div> <%# TODO: search area here, bellow input "area" %>
+      <div class="search-area" data-items-target="searchArea">
+        <%= text_field_tag :name, nil, data: { 'items-target': 'searchInput' } %>
 
         <%= button_tag class: 'button-box', disabled: true,
-          data: { path: private_items_user_path(@user) } do
+          data: {
+            'filter-url': filter_items_user_path(@user),
+            'items-target': 'filterButton',
+            action: 'items#filterItems'
+          } do
         %>
           <%= fa_icon 'filter' %><%= t '.filter.verb' %>
         <% end %>
       </div>
-    <% end %>
+      <div class="search-result" data-items-target="searchResult">
+        <span><%= t '.filter.noun' %>:</span>
+        <%= button_tag class: 'button-box', data: {
+            'reset-search-url': private_items_user_path(@user),
+            action: 'items#searchClose'
+          } do
+        %>
+          <%= fa_icon 'remove' %><%= t '.filter.name' %>:
+        <% end %>
+      </div>
+    </div>
 
     <div class="button-group">
-      <%= link_to new_user_item_path(@user) do %>
+      <%= button_tag class: 'button-box',
+        data: { action: 'items#new', 'new-item-url' => new_user_item_path(@user) } do
+      %>
         <%= fa_icon 'plus-circle' %><%= t '.new' %>
       <% end %>
     </div>
   </div>
 
   <% if @items.present? %>
-    <div class="items-list">
-      <% @items.each do |item| %>
-        <% if item.private? %>
-          <%= render 'items/item', item: item %>
-        <% end %>
-      <% end %>
-    </div>
-
-    <% if local_assigns[:paginate] %>
-      <%= will_paginate @items, param_name: :offset, class: 'paginate',
-        params: { name: params[:name] }
+    <%= turbo_frame_tag 'items-list', data: { 'items-target' => "itemsList" } do %>
+      <%= render 'items/list', items: @items, paginate: local_assigns[:paginate],
+        offset: local_assigns[:offset]
       %>
     <% end %>
   <% elsif params[:name] %>
@@ -49,4 +56,8 @@
   <% else %>
     <p><%= t '.none' %></p>
   <% end %>
+
+  <%#= render 'shared/overlay/overlay', controller: 'items' %>
+  <%#= render 'items/modal', title: Item.model_name.human %>
+  <%#= render 'shared/overlay/loading', controller: 'items' %>
 </div>

@@ -1,0 +1,547 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #591E58;
+  color: #606060;
+  font-family: verdana, helvetica, arial, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  width: 100vw;
+}
+
+@media screen and (min-width: 1000px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+.main-container {
+  box-sizing: border-box;
+  color: #606060;
+  margin: 0 auto;
+  padding: 1em 0;
+  width: 1000px;
+}
+.main-container header {
+  background-color: white;
+  display: table;
+  height: 5em;
+  margin-bottom: 2em;
+  width: 100%;
+}
+.main-container header > div {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+}
+.main-container header a {
+  box-sizing: border-box;
+  color: #606060;
+  display: inline-block;
+  font-weight: 500;
+  height: 100%;
+  padding: 0 1em;
+  text-decoration: none;
+}
+.main-container header a::after {
+  content: "";
+  display: inline-block;
+  font-size: 0;
+  height: 100%;
+  vertical-align: middle;
+}
+.main-container header a:hover {
+  color: #008383;
+}
+.main-container header .logo {
+  min-width: 12em;
+  text-align: center;
+}
+.main-container header .logo img {
+  vertical-align: middle;
+}
+.main-container header .links {
+  white-space: nowrap;
+}
+.main-container header .session {
+  width: 100%;
+  text-align: right;
+}
+.main-container header .session a.user-name {
+  color: #008383;
+  font-style: italic;
+  padding: 0;
+}
+.main-container header .session a.user-name:hover {
+  text-decoration: underline;
+}
+.main-container header .active {
+  color: #008383;
+  border-bottom: 0.25em solid #008383;
+  border-top: 0.25em solid white;
+}
+.main-container .content {
+  background-color: #FFF;
+  box-sizing: border-box;
+  display: flex;
+  height: 45em;
+  width: 100%;
+}
+.main-container .content .nav-menu {
+  box-sizing: border-box;
+  flex: 0 0 20%;
+  width: 20%;
+}
+.main-container .content .nav-menu ul {
+  padding-left: 24px;
+}
+.main-container .content .nav-menu li {
+  border-right: 0.0625em solid #008383;
+}
+.main-container .content .nav-menu .active {
+  border-right: 0.25em solid #008383;
+  color: #008383;
+  font-style: italic;
+}
+.main-container .content .nav-menu .menu-item {
+  display: block;
+  font-weight: 600;
+  padding: 0 4px;
+}
+.main-container .content .nav-menu .menu-item li {
+  margin: 0;
+}
+.main-container .content .nav-menu .menu-item a {
+  color: inherit;
+  display: inline-block;
+  padding: 4px 0;
+  text-decoration: none;
+  width: 100%;
+}
+.main-container .content .nav-menu .menu-item a:visited {
+  color: inherit;
+}
+.main-container .content .nav-menu .menu-item a:hover {
+  color: #008383;
+}
+.main-container .content .view {
+  box-sizing: border-box;
+  padding: 8px;
+  width: 80%;
+}
+.main-container .content .view .list {
+  color: #606060;
+}
+.main-container .content .view .list ul {
+  list-style: none;
+  padding: 0 1em;
+}
+.main-container .content .view .list li {
+  padding: 0.25em;
+}
+.main-container .content .view .list a {
+  color: inherit;
+  text-decoration: underline;
+}
+.main-container .content .view .list a:visited {
+  color: inherit;
+}
+.main-container .content .view .list a:hover {
+  color: #008383;
+}
+.main-container .content .button-bar {
+  margin: 1em 0;
+  overflow: auto;
+}
+
+/* .button-group {
+  background-color: white;
+  display: flex;
+  gap: 8px;
+  height: 32px;
+  justify-content: flex-end;
+  margin: 8px 0;
+}
+.button-group > * {
+  background-color: white;
+  border-radius: 0.25em;
+  border: 0.125em solid #008383;
+  color: #008383;
+  text-decoration: none;
+  padding: 0.25em;
+}
+.button-group > *:hover {
+  background-color: #008383;
+  color: #FFF;
+  cursor: pointer;
+}
+.button-group > * i {
+  padding-right: 0.25em;
+}
+.button-group > *.cancel, .button-group > *.destroy {
+  border-color: #EF4E22;
+  color: #EF4E22;
+}
+.button-group > *.cancel:hover, .button-group > *.destroy:hover {
+  background-color: #EF4E22;
+  color: #FFF;
+  cursor: pointer;
+}
+.button-group > *.disabled {
+  border-color: gray;
+  color: gray;
+  pointer-events: none;
+}
+.button-group > *.disabled:hover {
+  background-color: transparent;
+  color: gray;
+  cursor: default;
+}
+
+.button-box {
+  background-color: white;
+  border-radius: 0.25em;
+  border: 0.125em solid #008383;
+  color: #008383;
+  font-size: inherit;
+  margin: 0 0.5em;
+  padding: 0.25em;
+  text-decoration: none;
+}
+.button-box:hover {
+  background-color: #008383;
+  color: #FFF;
+  cursor: pointer;
+}
+.button-box i {
+  padding-right: 0.25em;
+}
+.button-box.cancel, .button-box.destroy {
+  border-color: #EF4E22;
+  color: #EF4E22;
+}
+.button-box.cancel:hover, .button-box.destroy:hover {
+  background-color: #EF4E22;
+  color: #FFF;
+  cursor: pointer;
+}
+.button-box:disabled {
+  background-color: unset;
+  border-color: gray;
+  color: gray;
+  cursor: not-allowed;
+} */
+
+.form-box {
+  box-shadow: 0 0 0.25em 0 #AAA;
+  border-radius: 0.25em;
+  margin: 2em auto;
+  padding: 1em;
+  width: 30em;
+}
+.form-box .label {
+  color: #008383;
+  font-size: 1.5em;
+  font-style: italic;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+.form-box .field {
+  margin: 8px auto;
+  position: relative;
+  width: 80%;
+}
+.form-box .field .field_with_errors {
+  display: block;
+  background: none;
+}
+.form-box .field .field_with_errors input[type=text], .form-box .field .field_with_errors input[type=password] {
+  border: 1px solid #EF4E22;
+  box-shadow: 0 0 0.25em 0.125px #EF4E22;
+}
+.form-box .forgot {
+  color: #591E58;
+  font-size: 0.8em;
+  margin-top: -1em;
+  overflow: hidden;
+  padding-right: 0.125em;
+}
+.form-box .forgot a {
+  float: right;
+}
+.form-box .forgot a:link, .form-box .forgot a:visited, .form-box .forgot a:hover, .form-box .forgot a:active {
+  color: #591E58;
+  text-decoration: none;
+}
+.form-box .forgot a:hover, .form-box .forgot a:active {
+  font-style: italic;
+  text-decoration: underline;
+}
+.form-box .input-icon {
+  color: #AAA;
+  top: 50%;
+  padding: 0 0.75em;
+  position: absolute;
+}
+.form-box input[type=text], .form-box input[type=password],
+.form-box input[type=number], .form-box select, .form-box textarea {
+  background-color: white;
+  border-radius: 0.25em;
+  border: 0.125em solid #AAA;
+  box-sizing: border-box;
+  color: #008383;
+  margin: 0.25em 0;
+  max-width: 100%;
+  outline: none;
+  padding: 0.5em;
+  width: 100%;
+}
+.form-box input[type=text]:focus, .form-box input[type=password]:focus,
+.form-box input[type=number]:focus, .form-box select:focus, .form-box textarea:focus {
+  box-shadow: 0 0 0.25em 0.125px #008383;
+}
+.form-box input.offset-for-icon {
+  padding-left: 2.5em;
+}
+.form-box .wrapper-custom-input-file {
+  margin: 4px auto;
+  text-align: center;
+}
+.form-box .wrapper-custom-input-file input[type=file] {
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 0.1px;
+  z-index: -1;
+}
+.form-box .wrapper-custom-input-file input[type=file]:focus + label {
+  box-shadow: 0 0 0.25em 0.125px #008383;
+}
+.form-box .wrapper-custom-input-file .custom-input-file {
+  border-radius: 4px;
+  border: 0.125em solid #008383;
+  color: #008383;
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px;
+  user-select: none;
+}
+.form-box .wrapper-custom-input-file .custom-input-file:hover {
+  color: white;
+  background-color: #008383;
+}
+.form-box .import-file {
+  text-align: left;
+  margin-top: 8px;
+}
+.form-box .import-file span {
+  padding-left: 4px;
+}
+.form-box input[type=submit], .form-box button[type=submit] {
+  background-color: #008383;
+  border-radius: 0.25em;
+  border: none;
+  box-shadow: 0 0 0.25em 0.125px #008383;
+  color: white;
+  display: block;
+  margin: 0 auto;
+  padding: 0.5em 2em;
+}
+.form-box input[type=submit]:hover, .form-box button[type=submit]:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+.form-box input[type=submit] i, .form-box button[type=submit] i {
+  padding-right: 0.5em;
+}
+
+/* .overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  display: none;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.overlay .content-wrapper {
+  background-color: white;
+  margin: 2em auto;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  width: 950px;
+}
+.overlay .content-wrapper .title {
+  color: #008383;
+  font-size: 1.5em;
+  font-style: italic;
+  font-weight: 700;
+  text-align: center;
+}
+.overlay .content-wrapper .img-crop-container {
+  border: 1px solid #AAA;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+  display: inline-block;
+  max-width: 80%;
+  text-align: center;
+}
+.overlay .content-wrapper button {
+  background-color: #008383;
+  border-radius: 0.25em;
+  border: none;
+  box-shadow: 0 0 0.25em 0.125px #008383;
+  color: white;
+  display: block;
+  margin: 2em auto;
+  padding: 0.5em 2em;
+}
+.overlay .content-wrapper button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+.overlay .content-wrapper button i {
+  padding-right: 0.5em;
+}
+.overlay .content-wrapper .close {
+  background: none;
+  border: none;
+  color: #EF4E22;
+  cursor: pointer;
+  font-size: 1.75em;
+  margin: 0.5em;
+  position: absolute;
+  right: 0;
+}
+.overlay .content-wrapper .close .hover {
+  display: none;
+}
+.overlay .content-wrapper .close:hover .default {
+  display: none;
+}
+.overlay .content-wrapper .close:hover .hover {
+  display: inline-block;
+} */
+
+.paginate {
+  text-align: center;
+  margin: 16px 16px 32px;
+}
+.paginate * {
+  margin: 0 1px;
+}
+.paginate .current {
+  color: #EF4E22;
+}
+.paginate .gap {
+  color: #008383;
+}
+.paginate a {
+  text-decoration: none;
+}
+
+#loading-layer, #paginate-loading-layer {
+  background-color: black;
+  bottom: 0;
+  display: block;
+  left: 0;
+  opacity: 0.25;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+#loading-layer div, #paginate-loading-layer div {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+}
+
+a {
+  color: #008383;
+}
+a:hover {
+  color: #591E58;
+}
+a:visited {
+  color: #11626B;
+}
+
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+}
+
+pre {
+  background-color: #eee;
+  font-size: 11px;
+  padding: 10px;
+}
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+.alert {
+  color: #EF4E22;
+}
+
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  background-color: #EF4E22;
+  display: table;
+  padding: 2px;
+}
+
+#error_explanation {
+  background-color: #f0f0f0;
+  border: 2px solid #EF4E22;
+  margin-bottom: 20px;
+  padding: 7px 7px 0;
+  width: 450px;
+}
+
+label {
+  display: block;
+}
+
+/* Novos estilos */
+/* reset button */
+/* button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: normal;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+} */
+
+.flex-container {
+  display: flex;
+}
+.grid-container {
+  display: grid;
+}
+
+.title {
+  color: #008383;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 700;
+  text-align: center;
+}
+
+.no-items-found {
+  color: #EF4E22;
+  font-style: italic;
+  text-align: center;
+}

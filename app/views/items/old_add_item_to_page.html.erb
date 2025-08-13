@@ -1,0 +1,41 @@
+<div id="add-item-button" data-controller="add-item-to-page"
+  data-add-item-to-page-userid-value="<%= @user.id %>"
+>
+  <%= render 'items/card' do %>
+    <%= button_tag type: 'button', data: { action: 'add-item-to-page#showOverlay' } do %>
+      <%= fa_icon 'plus-circle' %>
+    <% end %>
+  <% end %>
+
+  <div class="add-item-to-page-overlay" data-add-item-to-page-target="overlay">
+    <div class="search-item">
+      <%= button_tag class: 'close', type: 'button',
+        data: {action: 'add-item-to-page#hideOverlay'} do
+      %>
+        <%= fa_icon 'times-circle-o', class: :default %>
+        <%= fa_icon 'times-circle', class: :hover %>
+      <% end %>
+
+      <p class="title"><%= t '.add_item.title' %></p>
+
+      <div class="form-box search">
+        <div id="search-items">
+          <div class="field">
+            <%= label_tag Item.human_attribute_name :name %>
+            <%= text_field_tag 'search', nil, data: {'add-item-to-page-target': 'name'} %>
+          </div>
+
+          <div class="actions">
+            <%= button_tag name: :search, type: 'submit',
+              data: { action: 'add-item-to-page#searchItems' } do
+            %>
+              <%= fa_icon 'search'%><%= t '.add_item.search' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div id="search-items-result" data-add-item-to-page-target="searchResult"></div>
+    </div>
+  </div>
+</div>

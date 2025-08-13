@@ -1,0 +1,20 @@
+.spreadsheet {
+
+  .no-initial-page, .no-file-selected {
+    color: #EF4E22;
+    font-style: italic;
+  }
+
+  #import-spreadsheet, #import-page {
+    text-align: left;
+  }
+
+  input[type=submit]:disabled {
+    background-color: #AAAAAA;
+    box-shadow: 0 0 0.25em 0.125px #AAAAAA;
+  }
+
+  input[type=submit]:hover {
+    opacity: 1;
+  }
+}

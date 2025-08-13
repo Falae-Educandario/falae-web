@@ -1,8 +1,8 @@
 <div class="spreadsheet">
   <p id="notice"><%= notice %></p>
 
-  <%= link_to user_spreadsheet_path(@user, @spreadsheet), method: :delete,
-    class: 'button-box destroy', data: { confirm: t('.destroy_alert') } do
+  <%= link_to user_spreadsheet_path(@user, @spreadsheet), class: 'button-box destroy',
+    data: {turbo_method: :delete, turbo_confirm: t('.destroy_alert')} do
   %>
     <%= fa_icon 'trash-o' %><%= t '.destroy' %>
   <% end %>

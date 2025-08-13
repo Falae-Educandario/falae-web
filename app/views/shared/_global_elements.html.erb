@@ -1,0 +1,45 @@
+<div id="global" data-controller="global">
+  <div class="overlay" data-global-target="overlay"></div>
+
+  <div class="modal" data-global-target="modal">
+    <div class="container">
+      <a class="close" data-action="global#closeModal">
+        <%= fa_icon 'times-circle-o', class: :default %>
+        <%= fa_icon 'times-circle', class: :hover %>
+      </a>
+
+      <p class="title" data-global-target="modalTitle"></p>
+      <div class="content" data-global-target="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="modal image-cropper" data-global-target="imageCropper">
+    <div class="container">
+      <a class="close" data-action="global#cancelImageCropper">
+        <%= fa_icon 'times-circle-o', class: :default %>
+        <%= fa_icon 'times-circle', class: :hover %>
+      </a>
+
+      <p class="title">Crop Image</p>
+      <div class="content">
+        <div class="truecropper" >
+          <img src="" id="image-cropper" accepts="image/*"
+            data-global-target="imageTag"
+          />
+        </div>
+      </div>
+
+      <div class="button-group">
+        <%= button_tag class: 'button-box', type: :button,
+          data: { action: "global#confirmImageCropper" } do
+        %>
+          <%= fa_icon 'check' %><%= t '.crop' %>
+        <% end %>
+      </div>
+    </div>
+  </div> <%# end "#image-cropper-modal" %>
+
+  <div class="loading" data-global-target="loading">
+    <%= fa_icon 'spinner pulse 3x fw' %>
+  </div>
+</div>

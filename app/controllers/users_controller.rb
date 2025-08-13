@@ -27,8 +27,11 @@ class UsersController < ApplicationController
         format.html { redirect_to root_url }
         format.json { render :show, status: :created, location: @user }
       else
+        puts '*'*50
+        puts @user.errors.full_messages
+        puts '*'*50
         @user.photo = nil
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

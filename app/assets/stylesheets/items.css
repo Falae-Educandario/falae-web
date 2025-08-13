@@ -1,0 +1,252 @@
+.items .actions-bar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.items .actions-bar .search-result {
+  align-items: center;
+  display: flex;
+}
+.items .actions-bar .search-result {
+  align-items: center;
+  display: none;
+}
+.items .actions-bar input[type=text] {
+  background-color: white;
+  border-radius: 0.25em;
+  border: 0.125em solid #AAA;
+  box-sizing: border-box;
+  color: #008383;
+  outline: none;
+  padding: 0.5em;
+}
+.items .actions-bar input[type=text]:focus {
+  box-shadow: 0 0 0.25em 0.125px #008383;
+}
+
+.items .items-list .items-list-item {
+  border-radius: 4px;
+  border: 2px solid #008383;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 16px;
+  height: 180px;
+  margin: 6px;
+  position: relative;
+  text-align: center;
+  vertical-align: top;
+  width: 142px;
+}
+.items .items-list .items-list-item .items-list-item-menu {
+  background-color: white;
+  border-radius: 50%;
+  border: 0 solid #EF4E22;
+  box-sizing: border-box;
+  color: #EF4E22;
+  cursor: pointer;
+  /* font-size: 0; */
+  height: 0;
+  left: 4px;
+  line-height: 1.5;
+  position: absolute;
+  top: 4px;
+  transition: all 0.125s;
+  width: 0;
+}
+.items .items-list .items-list-item .items-list-item-menu:hover {
+  box-shadow: 0 0 4px;
+}
+.items .items-list .items-list-item .items-list-item-menu:hover .fa {
+  font-weight: bold;
+}
+.items .items-list .items-list-item:hover .items-list-item-menu {
+  border: 2px solid #EF4E22;
+  font-size: 14px;
+  height: 24px;
+  left: -6px;
+  top: -6px;
+  width: 24px;
+}
+.items .items-list .items-list-item a, .items .items-list .items-list-item a:active, .items .items-list .items-list-item a:focus {
+  outline: none;
+}
+.items .items-list .items-list-item .items-list-item-name {
+  height: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.items .items-list .items-list-item .items-list-item-name span::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.items .items-list .items-list-item .items-list-item-image {
+  height: 80%;
+}
+.items .items-list .items-list-item .items-list-item-image span::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.items .items-list .items-list-item .items-list-item-image img {
+  vertical-align: middle;
+  width: 80%;
+}
+.items .item-image {
+  height: 150px;
+  max-height: 150px;
+  max-width: 150px;
+  width: 150px;
+}
+.items .item-image img {
+  height: 100%;
+  width: 100%;
+}
+.items #item-image-container {
+  text-align: center;
+}
+.items #item-image-container #item-image-wrapper {
+  border-radius: 4px;
+  border: 2px solid #AAA;
+  display: none;
+  height: 150px;
+  max-height: 154px;
+  max-width: 154px;
+  overflow: hidden;
+  width: 150px;
+}
+.items #item-image-container #item-image-wrapper #item-image {
+  height: 150px;
+  width: 150px;
+}
+
+
+/* RAILS 8 MIGRATION - New styles */
+.items .items-list {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+}
+
+.card-button { /* Add button item in page item list */
+  border-radius: 4px;
+  /* Common button options */
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: normal;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+}
+
+.card-button:hover {
+  background-color: #DCDCDC;
+}
+
+.card {
+  border-radius: 4px;
+  border: 2px solid #008383;
+  box-sizing: border-box;
+  height: 180px;
+  margin: 6px;
+  width: 142px;
+}
+
+.card .item {
+  height: 100%;
+  width: 100%;
+}
+
+.card .item > * {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.card .item .name {
+  height: 20%;
+}
+
+.card .item .image {
+  height: 80%;
+}
+
+.card .item .image > img {
+  width: 80%;
+}
+
+.item.form-box {
+  width: 560px;
+}
+
+.item.form-box form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item.form-box form .card {
+  height: 208px;
+  width: 164px;
+}
+
+/* Item - add item used in item list of page in boards */
+#add-item-button .card {
+  display: flex;
+}
+#add-item-button .card > button {
+  background-color: white;
+  border: none;
+  color: #606060;
+  font-size: 48px;
+  padding: 0;
+  width: 100%;
+}
+#add-item-button .card > button:hover {
+  color: #008383;
+  cursor: pointer;
+}
+#add-item-button .card > button:focus {
+  outline: none;
+}
+/* end */
+
+/* Overlay, Form, Loading */
+/* .items .overlay {
+  background-color: rgba(0, 0, 0, 0.25);
+  bottom: 0;
+  display: none;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.items .modal {
+  bottom: 0;
+  display: none;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.items .loading {
+  align-items: center;
+  bottom: 0;
+  color: #E8E8E8;
+  display: none;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+} */

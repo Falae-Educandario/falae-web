@@ -1,0 +1,83 @@
+.button-group {
+  /* background-color: white; */
+  display: flex;
+  gap: 8px;
+  height: 32px;
+  justify-content: center;
+  margin: 16px 0 24px;
+}
+.button-group.left {
+  justify-content: start;
+}
+.button-group.right {
+  justify-content: end;
+}
+/* .button-group > * {
+  background-color: white;
+  border-radius: 0.25em;
+  border: 0.125em solid #008383;
+  color: #008383;
+  text-decoration: none;
+  padding: 0.25em;
+}
+.button-group > *:hover {
+  background-color: #008383;
+  color: #FFF;
+  cursor: pointer;
+}
+.button-group > * i {
+  padding-right: 0.25em;
+}
+.button-group > *.cancel, .button-group > *.destroy {
+  border-color: #EF4E22;
+  color: #EF4E22;
+}
+.button-group > *.cancel:hover, .button-group > *.destroy:hover {
+  background-color: #EF4E22;
+  color: #FFF;
+  cursor: pointer;
+}
+.button-group > *.disabled {
+  border-color: gray;
+  color: gray;
+  pointer-events: none;
+}
+.button-group > *.disabled:hover {
+  background-color: transparent;
+  color: gray;
+  cursor: default;
+} */
+
+.button-box {
+  background-color: white;
+  border-radius: 4px;
+  border: 2px solid #008383;
+  color: #008383;
+  font-size: inherit;
+  margin: 0 8px;
+  padding: 4px;
+  text-decoration: none;
+}
+.button-box:hover {
+  background-color: #008383;
+  color: #FFF;
+  cursor: pointer;
+}
+.button-box i {
+  padding-right: 4px;
+}
+.button-box.cancel, .button-box.destroy {
+  border-color: #EF4E22;
+  color: #EF4E22;
+}
+.button-box.cancel:hover, .button-box.destroy:hover {
+  background-color: #EF4E22;
+  color: #FFF;
+  cursor: pointer;
+}
+.button-box:disabled {
+  background-color: unset;
+  border-color: gray;
+  color: gray;
+  cursor: not-allowed;
+}

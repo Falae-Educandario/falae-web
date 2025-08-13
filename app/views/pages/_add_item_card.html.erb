@@ -1,0 +1,7 @@
+<div id="add-item-button">
+  <%= render 'items/card' do %>
+    <%= button_tag type: 'button', data: { action: 'pages#openSearchItemForm' } do %>
+      <%= fa_icon 'plus-circle' %>
+    <% end %>
+  <% end %>
+</div>

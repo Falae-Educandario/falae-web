@@ -1,0 +1,22 @@
+.flash {
+  border: 0.125em solid;
+  border-radius: 0.25em;
+  padding: 0.5em;
+  text-align: center;
+  visibility: hidden;
+}
+.flash.alert {
+  background-color: #FFB6C1;
+  border-color: red;
+  visibility: visible;
+}
+.flash.warning {
+  background-color: #FAFAD2;
+  border-color: #DAA520;
+  visibility: visible;
+}
+.flash.success {
+  background-color: #90EE90;
+  border-color: #2E8B57;
+  visibility: visible;
+}

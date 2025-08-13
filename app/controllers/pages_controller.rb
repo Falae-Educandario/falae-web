@@ -95,8 +95,8 @@ class PagesController < ApplicationController
     else
       []
     end
-    items_paginated = items.paginate page: params[:offset], per_page: 5
-    render locals: { items: items_paginated }
+    items_paginated = items.paginate page: params[:offset], per_page: 2
+    render partial: 'pages/search_result_v2', locals: { items: items_paginated }
   end
 
   # POST

@@ -1,0 +1,53 @@
+<div class="image-cropper-modal">
+  <a class="close" data-action="<%= controller %>#cancel">
+    <%= fa_icon 'times-circle-o', class: :default %>
+    <%= fa_icon 'times-circle', class: :hover %>
+  </a>
+
+  <p class="image-cropper-modal-title">Crop Image</p>
+
+  <%# TODO: Usando overlay-content pq somente content pega estilo global %>
+  <div class="image-cropper-modal-content">
+    <div class="truecropper" >
+      <img src="" id="image-cropper" accepts="image/*" data-<%= controller %>-target="imageTag" />
+    </div>
+  </div>
+
+  <div>
+    <%= button_tag class: 'button-box', type: :button,
+      data: { action: "<%= controller %>#confirm" } do
+    %>
+      <%= fa_icon 'check' %><%= t '.crop' %>
+    <% end %>
+  </div>
+</div>
+
+
+
+<div id="image-cropper" data-global-target="imageCropper">
+  <div class="modal">
+    <a class="close" data-global-target="imageCropperClose">
+      <%= fa_icon 'times-circle-o', class: :default %>
+      <%= fa_icon 'times-circle', class: :hover %>
+    </a>
+
+    <p class="image-cropper-modal-title">Crop Image</p>
+
+    <%# TODO: Usando overlay-content pq somente content pega estilo global %>
+    <div class="image-cropper-modal-content">
+      <div class="truecropper" >
+        <img src="" id="image-cropper" accepts="image/*"
+          data-global-target="imageTag"
+        />
+      </div>
+    </div>
+
+    <div>
+      <%= button_tag class: 'button-box', type: :button,
+        data: { action: "global#confirm" } do
+      %>
+        <%= fa_icon 'check' %><%= t '.crop' %>
+      <% end %>
+    </div>
+  </div>
+</div>

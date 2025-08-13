@@ -1,0 +1,13 @@
+<%= turbo_stream.update('items-list') do %>
+  <div class="items-list">
+    <% @items.each do |item| %>
+      <%= render 'items/item', item: item %>
+    <% end %>
+  </div>
+
+  <% if local_assigns[:paginate] %>
+    <%= will_paginate @items, param_name: :offset, class: 'paginate',
+        params: { name: params[:name] }
+    %>
+  <% end %>
+<% end %>

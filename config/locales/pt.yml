@@ -317,6 +317,13 @@ pt:
       notice: Item atualizado com sucesso.
     destroy:
       notice: Item apagado com sucesso.
+    add_item_to_page:
+      add_item:
+        title: Adicionar Item
+        search: Procurar
+    search_result:
+      add_to_page: Adicionar a página
+      no_item_found: Nenhum item encontrado.
   layouts:
     application:
       og_description: Aplicativo de Comunicação Alternativa que permite pessoas com dificuldades de fala e mobilidade se comunicarem utilizando pictogramas que representam palavras.
@@ -418,17 +425,11 @@ pt:
         other: "Este item está presente nas páginas: %{pages}. Ao editá-lo, as mudanças serão refletidas em todas elas."
       remove: Remover
       remove_alert: Remover item da página?
-    add_item:
-      add_item: Adicionar Item
-      search: Procurar
     edit_item:
       edit: Editar Item
       not_linked: -- sem vínculo --
       save: Salvar
       unlink: -- desvincular --
-    search_result:
-      add_to_page: Adicionar a página
-      no_item_found: Nenhum item encontrado.
     export:
       ext: pagina
       include_private_items: Incluir itens privados das páginas

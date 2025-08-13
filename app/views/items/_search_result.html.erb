@@ -1,0 +1,71 @@
+<%# Used in boards/pages for now %>
+<% if items.empty? %>
+  <p class="no-items-found">
+    <%= t '.no_item_found' %>
+  </p>
+<% else %>
+  <% items.each do |item| %>
+    <div class="form-box search-item-result">
+      <%= form_with url: '/users/1/spreadsheet/1/page/1',
+        method: :post do |form|
+      %>
+        <%# new record means that item is from pictogram (public image) %>
+        <% new_record = item.new_record? %>
+        <% if new_record %>
+          <% item.name.capitalize! %>
+          <% item.category = Category.default %>
+          <%= form.fields_for :image do |img| %>
+            <% img.hidden_field :id %>
+          <% end %>
+        <% else %>
+          <%= form.hidden_field :id, value: item.id %>
+        <% end %>
+
+        <div class="item-result">
+          <%= render 'items/item_v2', item: item %>
+        </div>
+
+        <div class="fields">
+          <p class="field">
+            <strong><%= Item.human_attribute_name :name %>:</strong>
+              <%= form.text_field :name, id: :item_name, value: item.name, disabled: !new_record %>
+          </p>
+
+          <div class="field">
+            <strong><%= Item.human_attribute_name :speech %>:</strong>
+            <%= form.text_field :speech, id: :item_speech, disabled: !new_record %>
+          </div>
+
+          <div class="field">
+            <strong><%= Category.model_name.human %>:</strong>
+            <%= new_record ?
+              form.select(
+                :category_id,
+                options_for_select(select_options_for_categories, Category.default.id)
+              ) :
+              form.text_field(
+                :category,
+                id: :category,
+                value: item.category.description, disabled: true
+              )
+            %>
+          </div>
+
+          <div class="actions">
+            <%= form.submit t('.add_to_page') %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= paginate items, param_name: :offset, class: 'paginate',
+  link_options: {
+    stimulus: {
+      controller: 'additemtopage',
+      action: 'searchItems',
+      param_name: 'offset'
+    },
+  }
+%>

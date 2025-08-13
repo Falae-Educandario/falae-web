@@ -1,0 +1,11 @@
+<div class="items-list">
+  <% @items.each do |item| %>
+    <%= render 'items/item', item: item %>
+  <% end %>
+</div>
+
+<% if local_assigns[:paginate] %>
+  <%= will_paginate @items, param_name: :offset, class: 'paginate',
+      params: { name: local_assigns[:name] }
+  %>
+<% end %>

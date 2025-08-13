@@ -1,3 +1,32 @@
+# Files in the config/locales directory are used for internationalization and
+# are automatically loaded by Rails. If you want to use locales other than
+# English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more about the API, please read the Rails Internationalization guide
+# at https://guides.rubyonrails.org/i18n.html.
+#
+# Be aware that YAML interprets the following case-insensitive strings as
+# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
+# must be quoted to be interpreted as strings. For example:
+#
+#     en:
+#       "yes": yup
+#       enabled: "ON"
+
 en:
   activerecord:
     models:
@@ -317,6 +346,13 @@ en:
       notice: Item updated successfully.
     destroy:
       notice: Item deleted successfully.
+    add_item_to_page:
+      add_item:
+        title: Add Item
+        search: Search
+    search_result:
+      add_to_page: Add to page
+      no_item_found: No item found.
   layouts:
     application:
       og_description: Alternative Communication app that allows people with speech and mobility impairments to communicate by using pictograms that represent words.
@@ -418,17 +454,11 @@ en:
         other: "This item is present in the pages: %{pages}. Once edited, changes will be reflected in all of them."
       remove: Delete
       remove_alert: Delete item from page?
-    add_item:
-      add_item: Add Item
-      search: Search
     edit_item:
       edit: Edit Item
       not_linked: -- not linked --
       save: Save
       unlink: -- unlink --
-    search_result:
-      add_to_page: Add to page
-      no_item_found: No item found.
     export:
       ext: page
       include_private_items: Include page private items

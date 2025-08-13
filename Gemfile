@@ -1,51 +1,79 @@
-source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+source "https://rubygems.org"
 
-ruby '3.1.7'
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 8.0.2"
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
+# Use sqlite3 as the database for Active Record
+gem "sqlite3", ">= 2.1"
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", ">= 5.0"
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem "importmap-rails"
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "turbo-rails"
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "stimulus-rails"
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "jbuilder"
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.7', '>= 6.1.7.4'
+# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+gem "bcrypt", "~> 3.1.7"
 
-# Use Puma as the app server
-gem 'puma', '~> 5.6'
-gem 'puma-daemon', require: false
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "tzinfo-data", platforms: %i[ windows jruby ]
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-# gem 'webpacker', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
-
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
-gem 'bcrypt', '~> 3.1.15'
-
-gem 'concurrent-ruby', '1.3.4'
-
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cache"
+gem "solid_queue"
+gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem "bootsnap", require: false
 
-# JQuery
-gem 'jquery-rails', '~> 4.4.0'
+# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+gem "kamal", require: false
+
+# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem "thruster", require: false
+
+# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# gem "image_processing", "~> 1.2"
+
+group :development, :test do
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
+
+  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  gem "rubocop-rails-omakase", require: false
+end
+
+group :development do
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
+end
+
+group :test do
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
+end
+
+group :production do
+  gem 'mysql2', '~>0.5'
+end
+
+
+## ADDED
 
 # Awesome Fonts (Icons)
 gem "font-awesome-rails", '~> 4.7.0'
 
 # Security headers
-gem 'secure_headers', '~>3.9.0'
+# gem 'secure_headers', '~>3.9.0'
 
 # Throttling/blocking protection middleware
 gem "rack-attack", "~> 5.0"
@@ -53,58 +81,13 @@ gem "rack-attack", "~> 5.0"
 # File attachment management for ActiveRecord
 gem 'kt-paperclip', '~> 7.2.0'
 
-gem 'will_paginate', '~> 3.3.1'
+gem 'will_paginate', '~> 4.0.1'
 
 gem 'rufus-scheduler', '~> 3.4.2'
 
 gem 'prawn', '~> 2.4.0'
 
-# Add matrix gem since it was removed from ruby default gems
-gem "matrix", "~> 0.4.3"
-
 # HTTP Accept-Language header filtering library
 gem "http_accept_language", "~> 2.1"
 
 gem 'brevo-rails'
-
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3', '~> 1'
-end
-
-group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 4.1.0'
-  # Display performance information such as SQL time and flame graphs for each request in your browser.
-  # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  gem 'rack-mini-profiler', '~> 2.0'
-  gem 'listen', '~> 3.3'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-
-  gem 'bundle-audit', require: false
-  gem 'brakeman', require: false
-end
-
-group :test do
-  # Adds support for Capybara system testing and selenium driver
-  # gem 'capybara', '>= 3.26'
-  # gem 'selenium-webdriver', '>= 4.0.0.rc1'
-  # Easy installation and use of web drivers to run system tests with browsers
-  # gem 'webdrivers'
-
-  gem 'rspec-rails'
-  gem 'rails-controller-testing'
-  gem 'factory_bot_rails'
-  gem 'simplecov', require: false
-end
-
-group :production do
-  gem 'mysql2', '~>0.5'
-end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

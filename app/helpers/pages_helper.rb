@@ -1,18 +1,4 @@
 module PagesHelper
-  def add_item_button
-    path = add_item_user_spreadsheet_page_path(@user, @spreadsheet, @page)
-    options = {
-      method: :get,
-      class: 'items-list-item add-button',
-      form_class: 'add-item-page',
-      remote: true
-    }
-
-    button_to(path, options) do
-      fa_icon 'plus-circle'
-    end
-  end
-
   def page_item_menu_icon(item)
     content_tag(:div, class: 'items-list-item-menu') do
       concat fa_icon('ellipsis-v')
