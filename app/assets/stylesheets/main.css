@@ -257,9 +257,10 @@ body {
   display: block;
   background: none;
 }
-.form-box .field .field_with_errors input[type=text], .form-box .field .field_with_errors input[type=password] {
+.form-box .field .field_with_errors input[type=text],
+.form-box .field .field_with_errors input[type=password] {
   border: 1px solid #EF4E22;
-  box-shadow: 0 0 0.25em 0.125px #EF4E22;
+  box-shadow: 0 0 4px 0.125px #EF4E22;
 }
 .form-box .forgot {
   color: #591E58;
@@ -271,7 +272,8 @@ body {
 .form-box .forgot a {
   float: right;
 }
-.form-box .forgot a:link, .form-box .forgot a:visited, .form-box .forgot a:hover, .form-box .forgot a:active {
+.form-box .forgot a:link, .form-box .forgot a:visited,
+.form-box .forgot a:hover, .form-box .forgot a:active {
   color: #591E58;
   text-decoration: none;
 }
@@ -288,11 +290,11 @@ body {
 .form-box input[type=text], .form-box input[type=password],
 .form-box input[type=number], .form-box select, .form-box textarea {
   background-color: white;
-  border-radius: 0.25em;
+  border-radius: 4px;
   border: 0.125em solid #AAA;
   box-sizing: border-box;
   color: #008383;
-  margin: 0.25em 0;
+  margin: 4px 0;
   max-width: 100%;
   outline: none;
   padding: 0.5em;
@@ -300,7 +302,7 @@ body {
 }
 .form-box input[type=text]:focus, .form-box input[type=password]:focus,
 .form-box input[type=number]:focus, .form-box select:focus, .form-box textarea:focus {
-  box-shadow: 0 0 0.25em 0.125px #008383;
+  box-shadow: 0 0 4px 0.125px #008383;
 }
 .form-box input.offset-for-icon {
   padding-left: 2.5em;
@@ -318,7 +320,7 @@ body {
   z-index: -1;
 }
 .form-box .wrapper-custom-input-file input[type=file]:focus + label {
-  box-shadow: 0 0 0.25em 0.125px #008383;
+  box-shadow: 0 0 4px 0.125px #008383;
 }
 .form-box .wrapper-custom-input-file .custom-input-file {
   border-radius: 4px;
@@ -340,15 +342,33 @@ body {
 .form-box .import-file span {
   padding-left: 4px;
 }
+.form-box .actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
 .form-box input[type=submit], .form-box button[type=submit] {
   background-color: #008383;
-  border-radius: 0.25em;
+  border-radius: 4px;
   border: none;
-  box-shadow: 0 0 0.25em 0.125px #008383;
+  box-shadow: 0 0 4px 0.125px #008383;
   color: white;
   display: block;
-  margin: 0 auto;
-  padding: 0.5em 2em;
+  padding: 8px 32px;
+}
+.form-box button[type=submit].destroy {
+  background-color: #EF4E22;
+  box-shadow: 0 0 4px 0.125px #EF4E22;
+}
+.form-box button[type=submit]:disabled {
+  border-color: gray;
+  background-color: gray;
+  box-shadow: 0 0 4px 0.125px gray;
+  color: white;
+}
+.form-box button[type=submit]:hover:disabled {
+  opacity: unset;
+  cursor: not-allowed;
 }
 .form-box input[type=submit]:hover, .form-box button[type=submit]:hover {
   cursor: pointer;

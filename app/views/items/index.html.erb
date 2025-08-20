@@ -1,7 +1,6 @@
 <div class="items" data-controller="items"
   data-items-userid-value="<%= @user.id %>"
   data-items-global-outlet="#global"
-  data-action="item:upsert->items#update-list-items"
 >
   <%# TODO: Replace notice with "toast notification" %>
   <% if notice %>
@@ -31,14 +30,14 @@
             action: 'items#searchClose'
           } do
         %>
-          <%= fa_icon 'remove' %><%= t '.filter.name' %>:
+          <%= fa_icon 'remove' %><%= t '.filter.name' %>: <%= params[:name] %>
         <% end %>
       </div>
     </div>
 
-    <div class="button-group">
+    <div class="button-group" id="new-item">
       <%= button_tag class: 'button-box',
-        data: { action: 'items#new', 'new-item-url' => new_user_item_path(@user) } do
+        data: { action: 'items#new', 'new-item-path' => new_user_item_path(@user) } do
       %>
         <%= fa_icon 'plus-circle' %><%= t '.new' %>
       <% end %>
@@ -56,8 +55,4 @@
   <% else %>
     <p><%= t '.none' %></p>
   <% end %>
-
-  <%#= render 'shared/overlay/overlay', controller: 'items' %>
-  <%#= render 'items/modal', title: Item.model_name.human %>
-  <%#= render 'shared/overlay/loading', controller: 'items' %>
 </div>

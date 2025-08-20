@@ -1,6 +1,8 @@
 <%= render 'items/card' do %>
-  <div class="item <%= css_class_name(item.category) %>" data-item-target="pictogramCategory">
-    <div class="name" data-item-target="pictogramName">
+  <div class="item <%= css_class_name(item.category) %>"
+    data-item-form-target="pictogramCategory"
+  >
+    <div class="name" data-item-form-target="pictogramName">
       <%= item.name %>
     </div>
 
@@ -10,9 +12,11 @@
           alt: item.name
         %>
       <% elsif item.image? %>
-        <%= image_tag item.image.image.url, alt: item.name, data: { 'item-target': "pictogramImage" } %>
+        <%= image_tag item.image.image.url, alt: item.name,
+          data: { 'item-form-target': "pictogramImage" }
+        %>
       <% else %>
-        <img src="" data-item-target="pictogramImage">
+        <img src="" data-item-form-target="pictogramImage">
       <% end %>
     </div>
   </div>

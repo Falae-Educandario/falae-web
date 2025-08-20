@@ -1,0 +1,26 @@
+<%= render 'form', item: @item %>
+
+<div class="button-group" data-controller="items"
+  data-item-form-global-outlet="#global"
+  data-items-global-outlet="#global"
+>
+  <%= link_to pdf_user_item_path(@user, @item, format: :pdf),
+    class: 'button-box', target: '_blank' do
+  %>
+      <%= fa_icon 'print' %><%= t '.print' %>
+    <% end %>
+
+  <% unless item.new_record? %>
+    <%= button_tag :destroy, class: 'button-box destroy',
+      data: {
+        path: user_item_path(@user, item),
+        action: 'items#destroy',
+        turbo_confirm: @item.pages.any? ?
+          destroy_item_confirmation_message(@item) :
+          'Are you sure!'
+      } do
+    %>
+      <%= fa_icon 'trash' %><%= t '.destroy' %>
+    <% end %>
+  <% end %>
+</div>

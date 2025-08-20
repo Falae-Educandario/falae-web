@@ -1,9 +1,12 @@
-<div class="item" data-controller="item"
-  data-item-id-value="<%= item.id %>"
-  data-item-url-value="<%= user_item_path(item.user, item) %>"
+<div class="item" data-controller="items"
+  data-item-id="<%= item.id %>"
+  data-items-global-outlet="#global"
 >
   <%= button_tag class: 'card-button', type: 'button',
-    data: { action: 'item#show' } do
+    data: {
+      action: 'items#show',
+      'show-item-path': user_item_path(@user, item)
+    } do
   %>
     <%= render 'items/pictogram', item: item %>
   <% end %>

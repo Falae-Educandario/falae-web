@@ -1,8 +1,12 @@
-<div class="item form-box" data-controller="item"
-  data-item-global-outlet="#global"
+<div class="item form-box" data-controller="item-form items"
+  data-item-form-global-outlet="#global"
+  data-items-global-outlet="#global"
+  <% unless item.new_record? %>
+    <%= "data-items-itemid-value=#{item.id}" %>
+  <% end %>
 >
   <%# TODO: change method to patch/put use better parameter to use for edit and create %>
-  <%= form_with model: [item.user, item], data: { 'item-target': 'form' } do |form| %>
+  <%= form_with model: [item.user, item], data: { 'items-target': 'form', 'item-form-target': 'form' } do |form| %>
     <div>
       <div class="pictogram">
         <%= render 'items/pictogram', item: item %>
@@ -13,11 +17,11 @@
           <%= form.fields_for :image do |image| %>
             <% [:crop_x, :crop_y, :crop_w, :crop_h].each do |attribute| %>
               <%= image.hidden_field attribute, id: attribute,
-                data: { 'item-target': attribute.to_s.camelize(:lower) }
+                data: { 'item-form-target': attribute.to_s.camelize(:lower) }
               %>
             <% end %>
 
-            <%= image.file_field :image, data: { 'item-target': 'fileInput' } %>
+            <%= image.file_field :image, data: { 'item-form-target': 'fileInput' } %>
 
             <%= image.label :image, class: 'custom-input-file' do %>
               <%= fa_icon 'upload' %> <%= t '.upload_file' %>
@@ -30,14 +34,14 @@
     <div class="fields<%= local_assigns[:search_result] ? ' private' : '' %>">
       <p class="field">
         <strong><%= Item.human_attribute_name :name %>:</strong>
-        <%= form.text_field :name, id: :item_name, data: {'item-target': 'name'},
+        <%= form.text_field :name, id: :item_name, data: {'item-form-target': 'name'},
           disabled: local_assigns[:search_result]
         %>
       </p>
 
       <div class="field">
         <strong><%= Item.human_attribute_name :speech %>:</strong>
-        <%= form.text_field :speech, id: :item_speech, data: { 'item-target': 'speech' },
+        <%= form.text_field :speech, id: :item_speech, data: { 'item-form-target': 'speech' },
           disabled: local_assigns[:search_result]
         %>
       </div>
@@ -47,12 +51,17 @@
         <%= form.select :category_id,
           options_for_select(select_options_for_categories, category_id(item)),
           {},
-          { data: { 'item-target': 'categoryId' }, disabled: local_assigns[:search_result] }
+          { data: { 'item-form-target': 'categoryId' }, disabled: local_assigns[:search_result] }
         %>
       </div>
 
       <div class="actions">
-        <%= form.button :submit, name: :save, data: { action: 'item#upsert' } do %>
+        <%= form.button :submit, name: :save, # disabled: true,
+          data: {
+            action: "items##{item.new_record? ? 'create' : 'update'}",
+            'item-form-target': 'submitButton'
+          } do
+        %>
           <%= fa_icon 'floppy-o' %><%= t '.save' %>
         <% end %>
       </div>

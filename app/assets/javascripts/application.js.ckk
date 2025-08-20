@@ -17,10 +17,10 @@
 //= require jquery.Jcrop
 
 
-document.addEventListener('turbolinks:load', function (e) {
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
-});
+// document.addEventListener('turbolinks:load', function (e) {
+//   $.ajaxSetup({
+//     headers: {
+//       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+//     }
+//   });
+// });

@@ -4,11 +4,11 @@ import { FetchRequest } from "@rails/request.js";
 
 export default class extends Controller {
   static targets = [
-    "itemsList", "searchArea", "searchResult", "searchInput",
-    "filterButton",
-    // "modal", "loading"
+    "searchArea", "searchResult", "searchInput", "filterButton",
+    "form", "itemsList", "item",
   ];
-  static values = { userid: Number };
+  // TODO: Review values if they are used
+  static values = { itemid: Number, userid: Number };
   static outlets = ["global"]
 
   connect() {
@@ -27,7 +27,7 @@ export default class extends Controller {
       url,
       {
         query: { name: this.searchInputTarget.value },
-        responseKind: 'turbo-stream'
+        responseKind: 'turbo-stream',
       }
     );
     this.globalOutlet.showOverlay();
@@ -70,8 +70,8 @@ export default class extends Controller {
 
   async new(ev) {
     ev.preventDefault();
-    const url = ev.target?.dataset?.newItemUrl;
-    const request = new FetchRequest('get', url);
+    const path = ev.target?.dataset?.newItemPath;
+    const request = new FetchRequest('get', path);
     this.globalOutlet.showOverlay();
     this.globalOutlet.showLoading();
     const response = await request.perform();
@@ -86,7 +86,106 @@ export default class extends Controller {
     }
   }
 
-  updateItemsList({ detail: { content }}) {
-    this.itemslistTarget.innerHtml = content;
+  async create(ev) {
+    ev.preventDefault();
+    const formData = new FormData(this.formTarget);
+    const request = new FetchRequest(
+      'post',
+      this.formTarget.getAttribute('action'),
+      {
+        body: formData,
+        responseKind: 'turbo-stream',
+      }
+    );
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+    this.globalOutlet.hideOverlay();
+    this.globalOutlet.resetModal();
+    this.globalOutlet.hideModal();
+    if (response.ok) {
+      await response.renderTurboStream();
+
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
   }
+
+  async show(ev) {
+    // TODO: Error if path is not defined?
+    const path = ev.currentTarget?.dataset?.showItemPath;
+    const request = new FetchRequest('get', path);
+    this.globalOutlet.showOverlay();
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+
+    if (response.ok) {
+      const html = await response.html;
+      this.globalOutlet.setModal({ title: 'Show Item', content: html });
+      this.globalOutlet.showModal();
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
+  }
+
+  async update(ev) {
+    // not enable submit if no changes
+    ev.preventDefault();
+    const formData = new FormData(this.formTarget);
+    const request = new FetchRequest(
+      'patch',
+      this.formTarget.getAttribute('action'),
+      {
+        body: formData,
+      }
+    );
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+    this.globalOutlet.hideOverlay();
+    this.globalOutlet.resetModal();
+    this.globalOutlet.hideModal();
+    if (response.ok) {
+      const html = await response.html;
+      document
+        .querySelector(`.items-list [data-item-id="${this.itemidValue}"]`)
+        .outerHTML = html;
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
+  }
+
+  async destroy(ev) {
+    ev.preventDefault();
+    const confirmMessage = ev.currentTarget.dataset.turboConfirm;
+    if (!confirm(confirmMessage)) {
+      return;
+    }
+    const path = ev.currentTarget?.dataset?.path;
+    console.log(`WHO AM I: ${ev.target}`);
+    const request = new FetchRequest(
+      'delete',
+      path,
+      {
+        responseKind: 'turbo-stream',
+      }
+    );
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+    this.globalOutlet.hideOverlay();
+    this.globalOutlet.resetModal();
+    this.globalOutlet.hideModal();
+    if (response.ok) {
+      await response.renderTurboStream();
+
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
+  }
+
+  // updateItemsList({ detail: { content }}) {
+  //   this.itemslistTarget.innerHtml = content;
+  // }
 }

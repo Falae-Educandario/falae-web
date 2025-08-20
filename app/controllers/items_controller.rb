@@ -59,7 +59,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    render partial: 'form', locals: { item: @item, interactive: false }
+    render partial: 'show', locals: { item: @item }
   end
 
   # GET /items/new
@@ -79,20 +79,22 @@ class ItemsController < ApplicationController
   def create
     @item = @user.items.build item_params.merge(private: true)
 
-    respond_to do |format|
-      if @item.save
-        # format.html { redirect_to private_items_user_path(@user), notice: t('.notice')
+    if @item.save
+      items = @user.items.where(private: true)
+      @items = items.paginate(page: params[:offset], per_page: 15)
 
-        items = @user.items.where(private: true)
-        @items = items.paginate(page: params[:offset], per_page: 15)
-
-        respond_to do |format|
-          format.html { render partial: 'list', locals: { paginate: false, name: params[:name] } }
-          format.json { render :show, status: :created, location: @item }
-          format.xml { render :index, locals: { paginate: false, name: params[:name] } }
-        end
-      else
-        @item.image = Image.new
+      respond_to do |format|
+        format.html {
+          render partial: 'list', locals: { paginate: false, name: params[:name] }
+        }
+        format.json { render :show, status: :created, location: @item }
+        format.turbo_stream {
+          render :index, locals: { name: params[:name], paginate: true }
+        }
+      end
+    else
+      @item.image = Image.new
+      respond_to do |format|
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
@@ -118,9 +120,14 @@ class ItemsController < ApplicationController
   # DELETE /items/1.json
   def destroy
     @item.destroy
+    items = @user.items.where(private: true)
+    @items = items.paginate(page: params[:offset], per_page: 15)
     respond_to do |format|
       format.html { redirect_to private_items_user_path(@user), notice: t('.notice') }
       format.json { head :no_content }
+      format.turbo_stream {
+        render :index, locals: { name: params[:name], paginate: true }
+      }
     end
   end
 

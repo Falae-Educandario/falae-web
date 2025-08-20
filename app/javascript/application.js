@@ -7,4 +7,10 @@ import "jcrop"
 // import "items"
 // import "pages"
 
-// document.addEventListener('turbo:load', function() {console.log('HUEHUEHUEHUE')});
+// document.addEventListener('turbo:load', function() {
+//   console.log('Turbo loaded');
+//   console.log('Stimulus available:', window.Stimulus);
+//   if (window.Stimulus) {
+//     console.log('Registered controllers:', Object.keys(window.Stimulus.router.modulesByIdentifier));
+//   }
+// });
