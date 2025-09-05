@@ -1,3 +1,114 @@
+.pages .items {
+  margin: 4px;
+}
+
+/* .pages .items .list {
+  margin: auto;
+} */
+
+.pages .items .list .page {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pages .items.cols-1 .page {
+  width: 154px;
+}
+
+.pages .items.cols-2 .page {
+  width: 308px;
+}
+
+.pages .items.cols-3 .page {
+  width: 462px;
+}
+
+.pages .items.cols-4 .page {
+  width: 616px;
+}
+
+.pages .items.cols-6 .page {
+  width: 768px;
+}
+.pages .items.cols-6 .card {
+  height: 152px;
+  margin: 5px;
+  width: 118px;
+}
+
+.pages .items.cols-7 .page {
+  width: 770px;
+}
+.pages .items.cols-7 .card {
+  font-size: 15px;
+  height: 128px;
+  margin: 5px;
+  width: 100px;
+}
+
+.pages .items.cols-8 .page {
+  width: 768px;
+}
+.pages .items.cols-8 .card {
+  font-size: 14px;
+  height: 110px;
+  margin: 5px;
+  width: 86px;
+}
+
+.pages .items.cols-9 .page {
+  width: 774px;
+}
+.pages .items.cols-9 .card {
+  font-size: 13px;
+  height: 98px;
+  margin: 5px;
+  width: 76px;
+}
+
+.pages .items.cols-10 .page {
+  width: 770px;
+}
+.pages .items.cols-10 .card {
+  font-size: 12px;
+  height: 85px;
+  margin: 5px;
+  width: 67px;
+}
+
+.pages .items .page .item .card.over {
+  border: 2px dashed black;
+}
+
+.pages .items .page .item .card {
+  pointer-events: none;
+}
+
+.pages .items .list hr:last-child {
+  display: none;
+}
+
+#add-item-button button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 48px;
+  height: 100%;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+#add-item-button button:hover {
+  color: #008383;
+}
+
+/* .pages #add-item-button .card {
+  margin: 4px auto;
+} */
+/*
 .pages .tab-bar {
   height: 2em;
   position: relative;
@@ -151,9 +262,9 @@
   display: none;
 }
 
-/* .overlay {
+.overlay {
   z-index: 3;
-} */
+}
 .overlay .edit-item .form-box, .overlay #search-items-result .form-box {
   width: 35em;
 }
@@ -323,10 +434,10 @@
   color: #EF4E22;
   font-style: italic;
   text-align: center;
-}
+} /* */
 
 /* NEW CSS */
-#search-item-form {
+/* #search-item-form {
   display: none;
 }
 
@@ -351,7 +462,7 @@
   border: none;
   font-size: 14px;
   padding: 0 0 8px 0;
-}
+} /* */
 
 /* #search-items-results .fields.private .field > * {
   display: inline;

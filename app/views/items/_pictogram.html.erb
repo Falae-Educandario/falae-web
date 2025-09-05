@@ -2,14 +2,16 @@
   <div class="item <%= css_class_name(item.category) %>"
     data-item-form-target="pictogramCategory"
   >
-    <div class="name" data-item-form-target="pictogramName">
-      <%= item.name %>
+    <div class="name">
+      <div data-item-form-target="pictogramName">
+        <%= item.name %>
+      </div>
     </div>
 
     <div class="image">
       <% if item.image.public? %> <%# Used to render items in spreadsheet/page view %>
         <%= image_tag image_path("#{item.image.id}#{File.extname(item.image.image_file_name)}"),
-          alt: item.name
+          alt: item.name, data: { 'item-form-target': "pictogramImage" }
         %>
       <% elsif item.image? %>
         <%= image_tag item.image.image.url, alt: item.name,

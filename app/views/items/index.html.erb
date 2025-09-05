@@ -12,8 +12,7 @@
     <div> <%# TODO: search area here, bellow input "area" %>
       <div class="search-area" data-items-target="searchArea">
         <%= text_field_tag :name, nil, data: { 'items-target': 'searchInput' } %>
-
-        <%= button_tag class: 'button-box', disabled: true,
+        <%= button_tag class: 'button-box', disabled: true, type: :button,
           data: {
             'filter-url': filter_items_user_path(@user),
             'items-target': 'filterButton',
@@ -25,34 +24,47 @@
       </div>
       <div class="search-result" data-items-target="searchResult">
         <span><%= t '.filter.noun' %>:</span>
-        <%= button_tag class: 'button-box', data: {
+        <%= button_tag class: 'button-box',  type: :button,
+          data: {
             'reset-search-url': private_items_user_path(@user),
             action: 'items#searchClose'
-          } do
+            } do
         %>
-          <%= fa_icon 'remove' %><%= t '.filter.name' %>: <%= params[:name] %>
+          <%= fa_icon 'remove' %><%= t '.filter.name' %>:
+          <span data-items-target="filterName"></span>
         <% end %>
       </div>
     </div>
 
     <div class="button-group" id="new-item">
-      <%= button_tag class: 'button-box',
-        data: { action: 'items#new', 'new-item-path' => new_user_item_path(@user) } do
+      <%= button_tag class: 'button-box', type: :button,
+        data: {
+          action: 'items#new',
+          path: new_user_item_path(@user)
+        } do
       %>
         <%= fa_icon 'plus-circle' %><%= t '.new' %>
       <% end %>
     </div>
   </div>
 
-  <% if @items.present? %>
-    <%= turbo_frame_tag 'items-list', data: { 'items-target' => "itemsList" } do %>
-      <%= render 'items/list', items: @items, paginate: local_assigns[:paginate],
+  <%= turbo_frame_tag 'items-list',
+    data: {
+      'items-target': "itemsList",
+      'autoscroll': true,
+      'autoscroll-behavior': "smooth"
+    } do
+  %>
+    <% if @items.present? %>
+      <%= render 'items/list', items: @items,
+        paginate: local_assigns[:paginate],
+        name: local_assigns[:name],
         offset: local_assigns[:offset]
       %>
+    <% elsif local_assigns[:name] %>
+      <p><%= t '.filter.no-results' %></p>
+    <% else %>
+      <p><%= t '.none' %></p>
     <% end %>
-  <% elsif params[:name] %>
-    <p><%= t '.filter.no-results' %></p>
-  <% else %>
-    <p><%= t '.none' %></p>
   <% end %>
 </div>

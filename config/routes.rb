@@ -31,10 +31,13 @@ Rails.application.routes.draw do
       get 'import_spreadsheet'
       get 'private_items', to: 'items#private'
       get 'filter_items', to: 'items#filter'
+      get 'search_items', to: 'items#search'
       post 'add_spreadsheet'
       patch 'update_email'
       patch 'update_password'
+      get 'test_form', to: 'spreadsheets#test_form'
     end
+
     resources :spreadsheets do
       get 'export'
       get 'export_data'
@@ -47,19 +50,21 @@ Rails.application.routes.draw do
           end
         end
         member do
+          delete 'remove_item'
           get 'add_item'
           get 'edit_item'
-          get 'export'
           get 'export_data'
+          get 'export'
           get 'pdf'
           get 'search_item'
+          # get 'search_items'
           post 'add_to_page'
           put 'swap_items'
           put 'update_item'
-          delete 'remove_item'
         end
       end
     end
+
     resources :items do
       member do
         get 'image'
@@ -72,5 +77,5 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   # ADDED
-  get '/items/search', to: 'items#search'
+  # get '/items/search', to: 'items#search'
 end

@@ -27,9 +27,6 @@ class UsersController < ApplicationController
         format.html { redirect_to root_url }
         format.json { render :show, status: :created, location: @user }
       else
-        puts '*'*50
-        puts @user.errors.full_messages
-        puts '*'*50
         @user.photo = nil
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -45,9 +42,11 @@ class UsersController < ApplicationController
         I18n.locale = @user.locale
         format.html { redirect_to @user, notice: t('.notice') }
         format.json { render :show, status: :ok, location: @user }
+        format.turbo_stream { render :show }
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.turbo_stream { render nothing: true, status: :unprocessable_entity }
       end
     end
   end
@@ -60,6 +59,7 @@ class UsersController < ApplicationController
 
   # GET users/1/change_email
   def change_email
+    render partial: 'users/change_email'
   end
 
   # GET users/1/change_password
@@ -77,6 +77,7 @@ class UsersController < ApplicationController
       elsif @user.update(email_update_params)
         format.html { redirect_to @user, notice: t('.notice') }
         format.json { render :show, status: :ok, location: @user }
+        format.turbo_stream { render :show }
       else
         error_msg = t('.invalid_email')
         flash.now[:alert] = error_msg

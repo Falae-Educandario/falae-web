@@ -1,0 +1,26 @@
+<%= turbo_stream.update('search-items-result') do %>
+  <%# Used in boards/pages for now %>
+  <% if items.empty? %>
+    <p class="no-items-found">
+      <%= t '.no_item_found' %>
+    </p>
+  <% else %>
+    <% items.each do |item| %>
+      <%= render 'items/form',
+        item: item,
+        search_result: true
+      %>
+    <% end %>
+
+    <% if local_assigns[:paginate] %>
+      <%= will_paginate items, param_name: :offset, class: 'paginate',
+          params: {
+            name: local_assigns[:name],
+            controller: 'items',
+            action: :search,
+            id: current_user
+          }
+      %>
+    <% end %>
+  <% end %>
+<% end %>

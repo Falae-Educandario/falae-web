@@ -1,7 +1,19 @@
-<div class="list">
-  <ul>
-  <% @spreadsheets.each do |spreadsheet| %>
-    <li><%= link_to spreadsheet.name, user_spreadsheet_path(@user, spreadsheet) %></li>
+<p>
+  <strong><%= t Spreadsheet.human_attribute_name :name %>:</strong>
+  <span data-boards-target="name"><%= @spreadsheet.name %></span>
+</p>
+
+<p>
+  <strong><%= t Spreadsheet.human_attribute_name :initial_page %>:</strong>
+  <% if @spreadsheet.pages.blank? %>
+    <span class="initial-page-name no-initial-page" data-boards-target="initialPage"
+      ><%= t '.no_page' %></span>
+  <% elsif @spreadsheet.initial_page.present? %>
+    <span class="initial-page-name" data-boards-target="initialPage"
+      ><%= @spreadsheet.initial_page %></span>
+  <% else %>
+    <span
+      class="initial-page-name no-initial-page"
+      data-boards-target="initialPage"><%= t '.no_initial_page' %></span>
   <% end %>
-  </ul>
-</div>
+</p>

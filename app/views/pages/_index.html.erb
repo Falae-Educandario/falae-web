@@ -1,0 +1,13 @@
+<div class="pages" data-controller="pages"
+  data-pages-global-outlet="#global"
+>
+  <%= render 'pages/index_actions' %>
+
+  <strong><%= Page.model_name.human(count: 2) %>:</strong>
+
+  <%= render 'pages/list' %>
+
+  <%#= render 'shared/mobile' do %>
+    <%#= render 'page' %>
+  <%# end %>
+</div>

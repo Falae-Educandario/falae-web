@@ -1,37 +1,7 @@
-<div class="user">
-  <p id="notice"><%= notice %></p>
-
-  <div class="button-bar">
-  <%= link_to edit_user_path(@user), class: 'button-box' do %>
-    <%= fa_icon 'edit' %><%= t '.edit' %>
+<div class="user" data-controller="users"
+  data-users-global-outlet="#global"
+>
+  <%= turbo_frame_tag 'user-form' do %>
+    <%= render 'users/form', user: @user %>
   <% end %>
-  </div>
-
-  <div class="user-photo">
-    <%= image_tag @user.photo.url, alt: t('.photo') %>
-  </div>
-
-  <p>
-    <strong><%= t User.human_attribute_name :name %>:</strong>
-
-    <%= @user.name %>
-  </p>
-
-  <p>
-    <strong><%= t User.human_attribute_name :last_name %>:</strong>
-
-    <%= @user.last_name %>
-  </p>
-
-  <p>
-    <strong><%= t User.human_attribute_name :email %>:</strong>
-
-    <%= @user.email %>
-  </p>
-
-  <p>
-    <strong><%= t '.description' %>:</strong><br />
-
-    <%= @user.profile %>
-  </p>
 </div>

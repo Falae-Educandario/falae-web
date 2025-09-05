@@ -1,0 +1,16 @@
+<div class="boards-list list">
+  <% if @spreadsheets.present? %>
+      <ul>
+      <% @spreadsheets.each do |spreadsheet| %>
+        <li>
+          <%= link_to spreadsheet.name,
+            user_spreadsheet_path(@user, spreadsheet),
+            data: { turbo_action: 'advance', turbo_frame: 'boards-pages' }
+          %>
+        </li>
+      <% end %>
+      </ul>
+  <% else %>
+    <p id='no-spreadsheet'><%= t '.none' %></p>
+  <% end %>
+</div>

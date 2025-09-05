@@ -27,12 +27,13 @@
             <% else %>
               <% content_for :item_link_to, '', flush: true %>
             <% end %>
-            
+
             <%= render 'items/item', item: item %>
           <% end %>
           <%= add_item_button if row.length != columns %>
         </div>
       <% end %>
+
       <% if page.length % (columns * rows) != 0 && page.length % columns == 0 %>
         <div class="items">
           <div class="items-list page">

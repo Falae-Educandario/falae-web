@@ -1,0 +1,37 @@
+<div class="user">
+  <p id="notice"><%= notice %></p>
+
+  <div class="button-group">
+  <%= link_to edit_user_path(@user), class: 'button-box' do %>
+    <%= fa_icon 'edit' %><%= t '.edit' %>
+  <% end %>
+  </div>
+
+  <div class="user-photo">
+    <%= image_tag @user.photo.url, alt: t('.photo') %>
+  </div>
+
+  <p>
+    <strong><%= t User.human_attribute_name :name %>:</strong>
+
+    <%= @user.name %>
+  </p>
+
+  <p>
+    <strong><%= t User.human_attribute_name :last_name %>:</strong>
+
+    <%= @user.last_name %>
+  </p>
+
+  <p>
+    <strong><%= t User.human_attribute_name :email %>:</strong>
+
+    <%= @user.email %>
+  </p>
+
+  <p>
+    <strong><%= t '.description' %>:</strong><br />
+
+    <%= @user.profile %>
+  </p>
+</div>

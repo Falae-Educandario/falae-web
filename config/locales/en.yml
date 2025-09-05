@@ -326,6 +326,7 @@ en:
     show:
       back: Back
       destroy: Delete
+      destroy_confirm: Remove Item
       destroy_alert:
         one: "This item is present in the page: %{pages}. Once removed, it will also be removed from that page."
         other: "This item is present in the pages: %{pages}. Once removed, it will also be removed from those pages."
@@ -334,6 +335,8 @@ en:
         one: "This item is present in the following page: %{pages}. Once edited, changes will be reflected in it."
         other: "This item is present in the following pages: %{pages}. Once edited, changes will be reflected in all of them."
       print: Print
+    card:
+      search_item_title: Search Item
     edit:
       cancel: Cancel
       edit: Edit
@@ -346,11 +349,7 @@ en:
       notice: Item updated successfully.
     destroy:
       notice: Item deleted successfully.
-    add_item_to_page:
-      add_item:
-        title: Add Item
-        search: Search
-    search_result:
+    search_items_result:
       add_to_page: Add to page
       no_item_found: No item found.
   layouts:
@@ -425,19 +424,35 @@ en:
       format:
         delimiter: ''
   pages:
+    index_action:
+      import: Import
+      new: Create Page
+    show_actions:
+      back: Back
+      destroy: Delete
+      destroy_alert: Deleting this page will also delete all of its pictograms.
+      edit: Edit
+      export: Export
+      print: Print
+    list:
+      none: You don't have pages yet.
+    add_item_to_page:
+      add_item:
+        title: Add Item
+        search: Search
     new:
       cancel: Cancel
       new: Create Page
+    form:
+      create: Create
+      cave: Save
+    search_form:
+      search: Procurar
+      add_to_page: Add to page
     create:
       notice: Page created successfully.
     show:
-      back: Back
-      destroy_alert: Deleting this page will also delete all of its pictograms.
-      destroy: Delete
-      edit: Edit
-      export: Export
       mobile_view: Mobile view
-      print: Print
     edit:
       cancel: Cancel
       edit: Edit
@@ -445,7 +460,7 @@ en:
       notice: Page updated successfully.
     destroy:
       notice: Page deleted successfully.
-    page:
+    page_deprecated:
       none: You don't have pages in this board yet.
     items:
       edit: Edit
@@ -483,6 +498,7 @@ en:
     index:
       import: Import
       new: New Board
+    list:
       none: You don't have boards yet.
     new:
       cancel: Cancel
@@ -498,9 +514,13 @@ en:
       new_page: New Page
       no_initial_page: '** Initial page not set **'
       destroy_alert: Deleting this board will also delete all of its pages and items.
+    spreadsheet:
+      no_page: '** There is no page in this board. **'
     edit:
       cancel: Cancel
       edit: Edit
+    form:
+      save: Save
     update:
       notice: Board updated successfully.
     destroy:

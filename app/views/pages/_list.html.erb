@@ -1,0 +1,18 @@
+<div class="list">
+  <%= turbo_frame_tag 'pages-list' do %>
+    <% if @pages.present? %>
+      <ul>
+        <% @pages.each do |page| %>
+          <li>
+            <%= link_to page.name,
+              user_spreadsheet_page_path(@user, @spreadsheet, page),
+              data: { turbo_action: 'advance', turbo_frame: 'boards-pages' }
+            %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p><%= t '.none' %></p>
+    <% end %>
+  <% end %>
+</div>

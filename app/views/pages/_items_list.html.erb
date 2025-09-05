@@ -1,0 +1,36 @@
+<% columns = @page.columns %>
+<% rows = @page.rows %>
+<% items = @page.items %>
+<% items_per_page = columns * rows %>
+<% cur_item_idx = 0 %>
+
+<div class="items cols-<%= columns %>" data-controller="pages"
+  data-pages-swap-items-path-value=
+      <%= swap_items_user_spreadsheet_page_path(@user, @spreadsheet, @page) %>
+  data-pages-global-outlet="#global"
+>
+  <div class="list" data-pages-target="itemList">
+    <% if items.empty? %>
+      <%= render 'pages/add_item_card' %>
+    <% else %>
+      <% items.each_slice(items_per_page).with_index(1) do |page, p_idx| %>
+        <div class="page">
+          <% page.each.with_index(1) do |item, i_idx| %>
+            <% cur_item_idx = i_idx %>
+            <%= render 'items/item', item: item, draggable: true %>
+          <% end %>
+
+          <%= render 'pages/add_item_card' if cur_item_idx != items_per_page %>
+        </div>
+
+        <hr />
+      <% end %>
+    <% end %>
+
+    <% if items.length == items_per_page %>
+      <div class="page">
+        <%= render 'pages/add_item_card' %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,14 @@
 <div id="add-item-button">
   <%= render 'items/card' do %>
-    <%= button_tag type: 'button', data: { action: 'pages#openSearchItemForm' } do %>
+    <%= button_tag type: 'button',
+      data: {
+        action: 'pages#openSearchItemForm',
+        path: search_item_user_spreadsheet_page_path(
+          @user, @spreadsheet, @page
+        ),
+        title: t('.search_item_title')
+      } do
+    %>
       <%= fa_icon 'plus-circle' %>
     <% end %>
   <% end %>

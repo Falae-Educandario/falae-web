@@ -20,14 +20,14 @@ body {
   box-sizing: border-box;
   color: #606060;
   margin: 0 auto;
-  padding: 1em 0;
+  padding: 16px 0;
   width: 1000px;
 }
 .main-container header {
   background-color: white;
   display: table;
   height: 5em;
-  margin-bottom: 2em;
+  margin-bottom: 32px;
   width: 100%;
 }
 .main-container header > div {
@@ -85,7 +85,8 @@ body {
   background-color: #FFF;
   box-sizing: border-box;
   display: flex;
-  height: 45em;
+  /* height: 45em; */
+  min-height: 45em;
   width: 100%;
 }
 .main-container .content .nav-menu {
@@ -128,7 +129,7 @@ body {
 .main-container .content .view {
   box-sizing: border-box;
   padding: 8px;
-  width: 80%;
+  flex: 1 0 80%;
 }
 .main-container .content .view .list {
   color: #606060;
@@ -234,61 +235,82 @@ body {
 } */
 
 .form-box {
-  box-shadow: 0 0 0.25em 0 #AAA;
-  border-radius: 0.25em;
-  margin: 2em auto;
-  padding: 1em;
-  width: 30em;
-}
-.form-box .label {
-  color: #008383;
-  font-size: 1.5em;
-  font-style: italic;
-  font-weight: 700;
-  margin-bottom: 0.5em;
-  text-align: center;
+  box-shadow: 0 0 4px 0 #AAA;
+  border-radius: 4px;
+  margin: 32px auto;
+  padding: 16px;
+  width: 512px;
 }
 .form-box .field {
-  margin: 8px auto;
+  margin: 16px auto !important;
   position: relative;
   width: 80%;
 }
-.form-box .field .field_with_errors {
+
+.label {
+  color: #008383;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.field {
+  margin: 8px 0;
+}
+.field:last-of-type {
+  margin-bottom: 0;
+}
+.field:first-of-type {
+  margin-top: 0;
+}
+.field .field_with_errors {
   display: block;
   background: none;
 }
-.form-box .field .field_with_errors input[type=text],
-.form-box .field .field_with_errors input[type=password] {
+.field strong:has(~ input:required)::after,
+.field label:has(~ input:required)::after,
+.field strong:has(~ select:required)::after,
+.field label:has(~ select:required)::after {
+  content: "*";
+  color: #EF4E22;
+  font-style: italic;
+  font-size: 12px;
+  font-weight: bold;
+}
+.field input[type=text].error,
+.field .field_with_errors input[type=text],
+.field .field_with_errors input[type=password] {
   border: 1px solid #EF4E22;
   box-shadow: 0 0 4px 0.125px #EF4E22;
 }
-.form-box .forgot {
+.forgot {
   color: #591E58;
   font-size: 0.8em;
   margin-top: -1em;
   overflow: hidden;
   padding-right: 0.125em;
 }
-.form-box .forgot a {
+.forgot a {
   float: right;
 }
-.form-box .forgot a:link, .form-box .forgot a:visited,
-.form-box .forgot a:hover, .form-box .forgot a:active {
+.forgot a:link, .forgot a:visited,
+.forgot a:hover, .forgot a:active {
   color: #591E58;
   text-decoration: none;
 }
-.form-box .forgot a:hover, .form-box .forgot a:active {
+.forgot a:hover, .forgot a:active {
   font-style: italic;
   text-decoration: underline;
 }
-.form-box .input-icon {
+.input-icon {
   color: #AAA;
   top: 50%;
   padding: 0 0.75em;
   position: absolute;
 }
-.form-box input[type=text], .form-box input[type=password],
-.form-box input[type=number], .form-box select, .form-box textarea {
+input[type=text], input[type=password],
+input[type=number], select, textarea {
   background-color: white;
   border-radius: 4px;
   border: 0.125em solid #AAA;
@@ -297,21 +319,24 @@ body {
   margin: 4px 0;
   max-width: 100%;
   outline: none;
-  padding: 0.5em;
+  padding: 8px;
   width: 100%;
 }
-.form-box input[type=text]:focus, .form-box input[type=password]:focus,
-.form-box input[type=number]:focus, .form-box select:focus, .form-box textarea:focus {
+textarea{
+  height: 80px;
+}
+input[type=text]:focus, input[type=password]:focus,
+input[type=number]:focus, select:focus, textarea:focus {
   box-shadow: 0 0 4px 0.125px #008383;
 }
-.form-box input.offset-for-icon {
+input.offset-for-icon {
   padding-left: 2.5em;
 }
-.form-box .wrapper-custom-input-file {
+.wrapper-custom-input-file {
   margin: 4px auto;
   text-align: center;
 }
-.form-box .wrapper-custom-input-file input[type=file] {
+.wrapper-custom-input-file input[type=file] {
   height: 0.1px;
   opacity: 0;
   overflow: hidden;
@@ -319,10 +344,10 @@ body {
   width: 0.1px;
   z-index: -1;
 }
-.form-box .wrapper-custom-input-file input[type=file]:focus + label {
+.wrapper-custom-input-file input[type=file]:focus + label {
   box-shadow: 0 0 4px 0.125px #008383;
 }
-.form-box .wrapper-custom-input-file .custom-input-file {
+.wrapper-custom-input-file .custom-input-file {
   border-radius: 4px;
   border: 0.125em solid #008383;
   color: #008383;
@@ -331,23 +356,23 @@ body {
   padding: 4px;
   user-select: none;
 }
-.form-box .wrapper-custom-input-file .custom-input-file:hover {
+.wrapper-custom-input-file .custom-input-file:hover {
   color: white;
   background-color: #008383;
 }
-.form-box .import-file {
+.import-file {
   text-align: left;
   margin-top: 8px;
 }
-.form-box .import-file span {
+.import-file span {
   padding-left: 4px;
 }
-.form-box .actions {
+.actions {
   display: flex;
   gap: 16px;
   justify-content: center;
 }
-.form-box input[type=submit], .form-box button[type=submit] {
+input[type=submit], button[type=submit] {
   background-color: #008383;
   border-radius: 4px;
   border: none;
@@ -356,26 +381,34 @@ body {
   display: block;
   padding: 8px 32px;
 }
-.form-box button[type=submit].destroy {
+button[type=submit].destroy {
   background-color: #EF4E22;
   box-shadow: 0 0 4px 0.125px #EF4E22;
 }
-.form-box button[type=submit]:disabled {
+button[type=submit]:disabled {
   border-color: gray;
   background-color: gray;
   box-shadow: 0 0 4px 0.125px gray;
   color: white;
 }
-.form-box button[type=submit]:hover:disabled {
+button[type=submit]:hover:disabled {
   opacity: unset;
   cursor: not-allowed;
 }
-.form-box input[type=submit]:hover, .form-box button[type=submit]:hover {
+input[type=submit]:hover, button[type=submit]:hover {
   cursor: pointer;
   opacity: 0.9;
 }
-.form-box input[type=submit] i, .form-box button[type=submit] i {
+input[type=submit] i, button[type=submit] i {
   padding-right: 0.5em;
+}
+input[type=submit]:disabled {
+  background-color: gray;
+  box-shadow: 0 0 4px 0.125px gray;
+  cursor: not-allowed;
+}
+input[type=submit]:disabled:hover {
+  opacity: unset;
 }
 
 /* .overlay {
@@ -500,9 +533,9 @@ pre {
   padding: 10px;
 }
 
-div.field, div.actions {
+/* div.field, div.actions {
   margin-bottom: 10px;
-}
+} */
 
 .alert {
   color: #EF4E22;

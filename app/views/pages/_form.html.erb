@@ -1,20 +1,43 @@
-<%= form_with(model: [@user, @spreadsheet, page], local: true) do |form| %>
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :page_name, autofocus: true %>
-  </div>
+<div class="form-box" data-controller="pages"
+  data-pages-global-outlet="#global"
+>
+  <%= form_with(model: [@user, @spreadsheet, page],
+    data: { 'pages-target' => 'form' }) do |form|
+  %>
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name, id: :page_name, autofocus: true,
+        required: true, data: { 'pages-target' => 'nameInput' }
+      %>
+    </div>
 
-  <div class="field">
-    <%= form.label :columns %>
-    <%= form.number_field :columns, id: :page_columns, value: page.columns || 5, min: 1, max: 10 %>
-  </div>
+    <div class="field">
+      <%= form.label :columns %>
+      <%= form.number_field :columns, id: :page_columns, required: true,
+        value: page.columns || 5, min: 1, max: 10
+      %>
+    </div>
 
-  <div class="field">
-    <%= form.label :rows %>
-    <%= form.number_field :rows, id: :page_rows, value: page.rows || 3, min: 1 %>
-  </div>
+    <div class="field">
+      <%= form.label :rows %>
+      <%= form.number_field :rows, id: :page_rows,
+        value: page.rows || 3, min: 1
+      %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+    <div class="actions">
+      <%= form.button :submit, name: :save, #disabled: true,
+        data: {
+          action: "pages##{page.new_record? ? 'create' : 'update'}",
+          'pages-target': 'submitButton'
+        } do
+      %>
+        <% if page.new_record? %>
+          <%= t('.create') %>
+        <% else %>
+          <%= fa_icon('floppy-o') %> <%= t('.save') %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

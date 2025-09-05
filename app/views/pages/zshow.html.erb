@@ -1,0 +1,89 @@
+<div class="pages" data-controller="pages">
+  <p id="notice"><%= notice %></p>
+
+  <%= link_to user_spreadsheet_page_path(@user, @spreadsheet, @page),
+    class: 'button-box destroy',
+    data: {turbo_method: :delete, turbo_confirm: t('.destroy_alert')} do
+  %>
+    <%= fa_icon 'trash-o' %><%= t '.destroy' %>
+  <% end %>
+
+  <%= link_to edit_user_spreadsheet_page_path(@user, @spreadsheet, @page),
+    class: 'button-box' do %>
+    <%= fa_icon 'edit' %><%= t '.edit' %>
+  <% end %>
+
+  <%= link_to user_spreadsheet_path(@user, @spreadsheet), class: 'button-box' do %>
+    <%= fa_icon 'arrow-left' %><%= t '.back' %>
+  <% end %>
+
+  <%= link_to export_user_spreadsheet_page_path(@user, @spreadsheet, @page),
+    class: 'button-box', remote: true do %>
+    <%= fa_icon 'upload' %><%= t '.export' %>
+  <% end %>
+
+  <%= link_to pdf_user_spreadsheet_page_path(@user, @spreadsheet, @page, format: :pdf),
+    class: 'button-box' do %>
+    <%= fa_icon 'print' %><%= t '.print' %>
+  <% end %>
+
+  <p>
+    <strong><%= Page.human_attribute_name :name %>:</strong>
+    <%= @page.name %>
+  </p>
+
+  <p>
+    <strong><%= Page.human_attribute_name :columns %>:</strong>
+    <%= @page.columns %>
+  </p>
+
+  <p>
+    <strong><%= Page.human_attribute_name :rows %>:</strong>
+    <%= @page.rows %>
+  </p>
+
+  <div class="tab-bar">
+    <div class="tab page-items-tab active"><%= Item.model_name.human(count: 2) %></div>
+    <%# <div class="tab page-mobile-tab">%><%#= t '.mobile_view' %><%# </div> %>
+    <div class="tab page-mobile-tab">&nbsp;</div>
+  </div>
+
+  <div class="item-lists">
+    <div class="page-items active">
+      <%#= render 'pages/items', columns: @page.columns, items: @page.items, rows: @page.rows %>
+      <%= render 'items/list', items: @page.items %>
+      <%= render 'add_item_card' %>
+    </div>
+
+    <div class="page-mobile-view">
+      <%#= render 'items/item', items: @page.items %>
+    </div>
+  </div>
+
+  <%# Add Item to Page Form %>
+  <div id="search-item-form" data-pages-target="searchItemForm">
+    <div class="search-form"
+      data-pages-search-url-value=
+        "<%= search_item_user_spreadsheet_page_path(@user, @spreadsheet, @page) %>"
+      data-pages-add-item-to-page-url-value=
+        "<%= add_to_page_user_spreadsheet_page_path(@user, @spreadsheet, @page) %>"
+    >
+      <div class="form-box search">
+        <div class="field">
+          <%= label_tag Item.human_attribute_name :name %>
+          <%= text_field_tag 'search', nil, data: {'pages-target': 'name'} %>
+        </div>
+
+        <div class="actions">
+          <%= button_tag name: :search, type: 'submit',
+            data: { action: 'pages#fetchItems' } do
+          %>
+            <%= fa_icon 'search'%><%= t '.add_item.search' %>
+          <% end %>
+        </div>
+      </div>
+
+      <div id="search-items-results" data-pages-target="searchResult"></div>
+    </div>
+  </div>
+</div>

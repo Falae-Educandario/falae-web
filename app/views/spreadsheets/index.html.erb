@@ -1,21 +1,31 @@
-<div class="spreadsheet">
-  <% if notice %>
-    <p id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="button-bar">
-    <%= link_to import_spreadsheet_user_path(@user), class: 'button-box', remote: true do %>
-      <%= fa_icon 'download' %><%= t('.import') %>
+<%= turbo_frame_tag 'boards-pages' do %>
+  <div class="boards" data-controller="boards"
+    data-boards-global-outlet="#global"
+  >
+    <% if notice %>
+      <p id="notice"><%= notice %></p>
     <% end %>
 
-    <%= link_to new_user_spreadsheet_path, class: 'button-box' do %>
-      <%= fa_icon 'plus-circle' %><%= t '.new' %>
+    <div class="button-group right">
+      <%= button_tag class: 'button-box', type: :button,
+        data: {
+          action: 'boards#new',
+          path: new_user_spreadsheet_path,
+          title: t('.new')
+        } do
+      %>
+        <%= fa_icon 'plus-circle' %><%= t '.new' %>
+      <% end %>
+
+      <%= link_to import_spreadsheet_user_path(@user), class: 'button-box',
+        data: { action: 'import' } do
+      %>
+        <%= fa_icon 'download' %><%= t('.import') %>
+      <% end %>
+    </div>
+
+    <%= turbo_frame_tag 'boards-list' do %>
+      <%= render 'list' %>
     <% end %>
   </div>
-
-  <% if @spreadsheets.present? %>
-    <%= render 'spreadsheets/spreadsheet' %>
-  <% else %>
-    <p id='no-spreadsheet'><%= t '.none' %></p>
-  <% end %>
-</div>
+<% end %>

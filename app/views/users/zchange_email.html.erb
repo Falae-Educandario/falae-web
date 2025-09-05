@@ -1,10 +1,11 @@
 <div class="user">
-  <div class="button-bar">
-    <%= link_to user_path(@user), class: 'button-box cancel' do %>
-      <%= fa_icon 'times' %><%= t '.cancel' %>
-    <% end %>
+  <div class="button-group">
     <%= link_to edit_user_path(@user), class: 'button-box back' do %>
       <%= fa_icon 'arrow-left' %><%= t '.back' %>
+    <% end %>
+
+    <%= link_to user_path(@user), class: 'button-box cancel' do %>
+      <%= fa_icon 'times' %><%= t '.cancel' %>
     <% end %>
   </div>
 

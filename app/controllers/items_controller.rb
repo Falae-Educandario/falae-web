@@ -30,16 +30,16 @@ class ItemsController < ApplicationController
     @items = items.paginate(page: params[:offset], per_page: 15)
 
     respond_to do |format|
-      format.html { render partial: 'items/list', locals: { name: params[:name], paginate: true } }
+      format.html { render :index, locals: { paginate: true, name: params[:name], offset: params[:offset] } }
       format.turbo_stream { render :index, locals: { name: params[:name], paginate: true } }
     end
   end
 
-  # TODO: merge with index, move logic to model ...
+  # TODO: used in pages search item modal, merge with index, move logic to model ...
   # GET /search
   # GET /search.json
   def search
-    items = if params[:name].present?
+    items = if params[:search] && params[:name].present?
       name = params[:name]
       private_items = @user.find_items_like_by(name: name)
       pictograms = Pictogram
@@ -49,16 +49,29 @@ class ItemsController < ApplicationController
       []
     end
 
+    if params[:spreadsheet_id] && params[:page_id]
+      @spreadsheet = @user.spreadsheets.find_by id: params[:spreadsheet_id]
+      @page = @spreadsheet&.pages&.find_by id: params[:page_id]
+      # @item = @page.items.find_by id: params[:id]
+    end
+
     items_paginated = items.paginate page: params[:offset], per_page: 5
 
-    render partial: 'items/search_result', locals: {
-      items: items_paginated,
+    render 'items/search_items_result', locals: {
+      items: items_paginated, paginate: true, name: params[:name],
+      spreadsheet: @spreadsheet, page: @page
     }
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
+    if params[:spreadsheet_id] && params[:page_id]
+      @spreadsheet = @user.spreadsheets.find_by id: params[:spreadsheet_id]
+      @page = @spreadsheet&.pages&.find_by id: params[:page_id]
+      @item = @page.items.find_by id: params[:id]
+    end
+
     render partial: 'show', locals: { item: @item }
   end
 
@@ -85,7 +98,8 @@ class ItemsController < ApplicationController
 
       respond_to do |format|
         format.html {
-          render partial: 'list', locals: { paginate: false, name: params[:name] }
+          render partial: 'list',
+            locals: { paginate: false, name: params[:name] }
         }
         format.json { render :show, status: :created, location: @item }
         format.turbo_stream {
@@ -97,6 +111,11 @@ class ItemsController < ApplicationController
       respond_to do |format|
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }
+        format.turbo_stream {
+          render json: @item.errors,
+            content_type: 'application/json',
+            status: :unprocessable_entity
+        }
       end
     end
   end
@@ -104,14 +123,35 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
-    respond_to do |format|
-      if @item.update(item_params)
-        # format.html { redirect_to [@item.user, @item], notice: t('.notice') }
-        format.html { render partial: 'item', locals: { item: @item } }
-        format.json { render :show, status: :ok, location: @item }
+    if params[:spreadsheet_id] && params[:page_id]
+      @spreadsheet = @user.spreadsheets.find_by id: params[:spreadsheet_id]
+      @page = @spreadsheet.pages.find_by id: params[:page_id]
+      @item = @page.items.find_by id: params[:id]
+
+      item_saved = @item.update item_params
+
+      if item_saved
+        item_page = ItemPage.find_by page_id: @page.id, item_id: @item.id
+        if params[:link_to_page].present?
+          link_to_page = @spreadsheet.pages.find_by id: params[:link_to_page]
+          item_page.update(link_to: link_to_page.name) if link_to_page
+        elsif item_page.link_to?
+          item_page.update link_to: nil
+        end
+        render 'pages/update_items'
       else
-        format.html { render :edit }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        render nothing: true, status: :unprocessable_entity
+      end
+    else
+      respond_to do |format|
+        if @item.update(item_params)
+          # format.html { redirect_to [@item.user, @item], notice: t('.notice') }
+          format.html { render partial: 'item', locals: { item: @item } }
+          format.json { render :show, status: :ok, location: @item }
+        else
+          format.html { render :edit }
+          format.json { render json: @item.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -119,15 +159,28 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @item.destroy
-    items = @user.items.where(private: true)
-    @items = items.paginate(page: params[:offset], per_page: 15)
-    respond_to do |format|
-      format.html { redirect_to private_items_user_path(@user), notice: t('.notice') }
-      format.json { head :no_content }
-      format.turbo_stream {
-        render :index, locals: { name: params[:name], paginate: true }
-      }
+    if params[:spreadsheet_id] && params[:page_id]
+      @spreadsheet = @user.spreadsheets.find_by id: params[:spreadsheet_id]
+      @page = @spreadsheet.pages.find_by id: params[:page_id]
+      item = @page.items.find_by id: params[:id]
+      if item
+        if item.private?
+          item_page = ItemPage.find_by page_id: @page.id, item_id: item.id
+          @page.item_pages.destroy item_page
+        else
+          Item.destroy item.id
+        end
+      end
+      render 'pages/update_items'
+    else
+      @item.destroy
+      items = @user.items.where(private: true)
+      @items = items.paginate(page: params[:offset], per_page: 15)
+      respond_to do |format|
+        format.html { render :index, locals: { name: params[:name], paginate: true } }
+        format.json { head :no_content }
+        format.turbo_stream { render :index, locals: { name: params[:name], paginate: true } }
+      end
     end
   end
 

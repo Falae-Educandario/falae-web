@@ -1,0 +1,38 @@
+<div class="button-group">
+  <%= link_to user_spreadsheet_path(@user, @spreadsheet),
+    class: 'button-box', data: { turbo_action: 'advance' } do
+  %>
+    <%= fa_icon 'arrow-left' %><%= t '.back' %>
+  <% end %>
+
+  <%= link_to pdf_user_spreadsheet_page_path(@user, @spreadsheet, @page, format: :pdf),
+    class: 'button-box', target: '_blank' do %>
+    <%= fa_icon 'print' %><%= t '.print' %>
+  <% end %>
+
+  <%= link_to export_user_spreadsheet_page_path(@user, @spreadsheet, @page),
+    class: 'button-box', remote: true do %>
+    <%= fa_icon 'upload' %><%= t '.export' %>
+  <% end %>
+
+  <%= button_tag class: 'button-box', type: :button,
+    data: {
+      action: 'pages#edit',
+      path: edit_user_spreadsheet_page_path(@user, @spreadsheet, @page),
+      title: t('.edit')
+    } do
+  %>
+    <%= fa_icon 'edit' %><%= t '.edit' %>
+  <% end %>
+
+  <%= link_to user_spreadsheet_page_path(@user, @spreadsheet, @page),
+    class: 'button-box destroy',
+    data: {
+      turbo_confirm: t('.destroy_alert'),
+      turbo_method: :delete,
+      turbo_action: 'advance'
+    } do
+  %>
+    <%= fa_icon 'trash-o' %><%= t '.destroy' %>
+  <% end %>
+</div>

@@ -1,13 +1,22 @@
-<div class="item" data-controller="items"
+<div class="item"
+  <%= "draggable=true" if local_assigns[:draggable] %>
+  data-controller="items"
   data-item-id="<%= item.id %>"
   data-items-global-outlet="#global"
 >
   <%= button_tag class: 'card-button', type: 'button',
     data: {
       action: 'items#show',
-      'show-item-path': user_item_path(@user, item)
+      path: user_item_path(@user, item,
+          **(@spreadsheet && @page ?
+            { params: { page_id: @page, spreadsheet_id: @spreadsheet } } :
+            {}
+          )
+        )
     } do
   %>
-    <%= render 'items/pictogram', item: item %>
+    <div class="card-wrapper">
+      <%= render 'items/pictogram', item: item %>
+    </div>
   <% end %>
 </div>

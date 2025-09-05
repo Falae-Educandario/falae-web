@@ -37,10 +37,20 @@ class SpreadsheetsController < ApplicationController
   # GET /spreadsheets/new
   def new
     @spreadsheet = @user.spreadsheets.new
+    render partial: 'new'
   end
 
   # GET /spreadsheets/1/edit
   def edit
+    respond_to do |format|
+      if @spreadsheet
+        @pages = @spreadsheet.pages
+        format.html { render partial: 'new', locals: { spreadsheet: @spreadsheet } }
+      else
+        # TODO: check behavior for error
+        format.html { redirect_to user_spreadsheets_url }
+      end
+    end
   end
 
   # POST /spreadsheets
@@ -50,8 +60,10 @@ class SpreadsheetsController < ApplicationController
 
     respond_to do |format|
       if @spreadsheet.save
+        @spreadsheets = @user.spreadsheets
         format.html { redirect_to [@user, @spreadsheet], notice: t('.notice') }
         format.json { render :show, status: :created, location: @spreadsheet }
+        format.turbo_stream { render :index }
       else
         format.html { render :new }
         format.json { render json: @spreadsheet.errors, status: :unprocessable_entity }
@@ -66,6 +78,9 @@ class SpreadsheetsController < ApplicationController
       if @spreadsheet.update(spreadsheet_params)
         format.html { redirect_to [@user, @spreadsheet], notice: t('.notice') }
         format.json { render :show, status: :ok, location: @spreadsheet }
+        format.turbo_stream {
+          render :spreadsheet, locals: { spreadsheet: @spreadsheet }
+        }
       else
         format.html { render :edit }
         format.json { render json: @spreadsheet.errors, status: :unprocessable_entity }
@@ -77,8 +92,10 @@ class SpreadsheetsController < ApplicationController
   # DELETE /spreadsheets/1.json
   def destroy
     @user.spreadsheets.destroy @spreadsheet
+    @spreadsheets = @user.spreadsheets
     respond_to do |format|
-      format.html { redirect_to user_spreadsheets_url, notice: t('.notice') }
+      # format.html { redirect_to user_spreadsheets_url, notice: t('.notice') }
+      format.html { render :index }
       format.json { head :no_content }
     end
   end

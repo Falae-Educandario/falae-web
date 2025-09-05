@@ -1,18 +1,44 @@
-<div class="item form-box" data-controller="item-form items"
+<div class="item form-box" data-controller="item-form items pages"
   data-item-form-global-outlet="#global"
   data-items-global-outlet="#global"
+  data-pages-global-outlet="#global"
   <% unless item.new_record? %>
     <%= "data-items-itemid-value=#{item.id}" %>
   <% end %>
 >
-  <%# TODO: change method to patch/put use better parameter to use for edit and create %>
-  <%= form_with model: [item.user, item], data: { 'items-target': 'form', 'item-form-target': 'form' } do |form| %>
+  <%# TODO: Move to a helper function %>
+  <% search = local_assigns[:search_result] %>
+  <% form_opts = {
+      **(@spreadsheet && @page ?
+        {
+          model: [@page, item],
+          url: (search ?
+            add_to_page_user_spreadsheet_page_path(
+              current_user, @spreadsheet, @page
+            ) : (
+              user_item_path(@user, @item, params: {
+                spreadsheet_id: @spreadsheet.id, page_id: @page.id
+              })
+            )
+          )
+        } : { model: [current_user, item] }
+      ),
+      **(search ? { method: 'post' } : {}),
+      data: {
+        'item-form-target': 'form',
+        'items-target': 'form',
+        'pages-target': 'form'
+      }
+    }
+  %>
+
+  <%= form_with **form_opts do |form| %>
     <div>
       <div class="pictogram">
         <%= render 'items/pictogram', item: item %>
       </div>
 
-      <% unless local_assigns[:search_result] %>
+      <% if !local_assigns[:search_result] && !item.image.public? %>
         <div class="wrapper-custom-input-file">
           <%= form.fields_for :image do |image| %>
             <% [:crop_x, :crop_y, :crop_w, :crop_h].each do |attribute| %>
@@ -21,7 +47,9 @@
               %>
             <% end %>
 
-            <%= image.file_field :image, data: { 'item-form-target': 'fileInput' } %>
+            <%= image.file_field :image, required: true,
+              data: { 'item-form-target': 'fileInput' }
+            %>
 
             <%= image.label :image, class: 'custom-input-file' do %>
               <%= fa_icon 'upload' %> <%= t '.upload_file' %>
@@ -31,18 +59,36 @@
       <% end %>
     </div>
 
-    <div class="fields<%= local_assigns[:search_result] ? ' private' : '' %>">
+    <% search_result_private_item =
+      local_assigns[:search_result] && item.image.private?
+    %>
+    <div
+      class="fields<%=search_result_private_item ? ' private' : '' %>"
+    >
+      <% if local_assigns[:search_result] %>
+        <% if item.new_record? %>
+          <% item.name.capitalize! %>
+          <% item.category = Category.default %>
+          <%= form.fields_for :image do |img| %>
+            <% img.hidden_field :id %>
+          <% end %>
+        <% else %>
+          <%= form.hidden_field :id, value: item.id %>
+        <% end %>
+      <% end %>
+
       <p class="field">
         <strong><%= Item.human_attribute_name :name %>:</strong>
-        <%= form.text_field :name, id: :item_name, data: {'item-form-target': 'name'},
-          disabled: local_assigns[:search_result]
+        <%= form.text_field :name, id: :item_name, required: true,
+          data: {'item-form-target': 'name'},
+          disabled: search_result_private_item
         %>
       </p>
-
       <div class="field">
         <strong><%= Item.human_attribute_name :speech %>:</strong>
-        <%= form.text_field :speech, id: :item_speech, data: { 'item-form-target': 'speech' },
-          disabled: local_assigns[:search_result]
+        <%= form.text_field :speech, id: :item_speech, required: true,
+          data: { 'item-form-target': 'speech' },
+          disabled: search_result_private_item
         %>
       </div>
 
@@ -51,18 +97,50 @@
         <%= form.select :category_id,
           options_for_select(select_options_for_categories, category_id(item)),
           {},
-          { data: { 'item-form-target': 'categoryId' }, disabled: local_assigns[:search_result] }
+          {
+            required: true,
+            data: { 'item-form-target': 'categoryId' },
+            disabled: search_result_private_item
+          }
         %>
       </div>
 
+      <% if @page && !local_assigns[:search_result]%>
+        <% unless @spreadsheet.pages.one? %>
+          <div class="field">
+            <% linked_page_id = @page.get_linked_page_id(item.id) %>
+
+            <% text_for_include_blank = item.link_to ?
+              t('.unlink') : t('.not_linked')
+            %>
+
+            <strong><%= Page.model_name.human %>:</strong>
+
+            <%= select_tag :link_to_page,
+              options_for_select(select_pages_options_helper, linked_page_id),
+              include_blank: text_for_include_blank
+            %>
+          </div>
+        <% end %>
+      <% end %>
+
       <div class="actions">
-        <%= form.button :submit, name: :save, # disabled: true,
+        <%= form.button :submit, name: :save, disabled: !@page,
           data: {
-            action: "items##{item.new_record? ? 'create' : 'update'}",
+            action: (search ?
+              "pages#addItemToPage" :
+              @page ?
+                "pages#updateItem" :
+                "items##{item.new_record? ? 'create' : 'update'}"
+            ),
             'item-form-target': 'submitButton'
           } do
         %>
-          <%= fa_icon 'floppy-o' %><%= t '.save' %>
+          <%= fa_icon 'floppy-o' %><%= t(
+            local_assigns[:search_result] ?
+              'pages.search_form.add_to_page' :
+              '.save'
+          ) %>
         <% end %>
       </div>
     </div>

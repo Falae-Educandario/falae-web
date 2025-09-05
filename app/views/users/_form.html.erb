@@ -1,105 +1,150 @@
-<%= form_with(model: user, local: true, html: {multipart: true}) do |form| %>
-  <div class="field">
-    <%= form.label :name %>
+<div class="info">
+  <%= form_with model: user, data: {
+      controller: 'form',
+      'users-target': 'form'
+    },
+    html: { autocomplete: "off" } do |form|
+  %>
+    <div class="form">
+      <div class="fields">
+        <div class="field">
+          <%= form.label :name %>
 
-    <span class="input-icon"><%= fa_icon 'user' %></span>
+          <%= form.text_field :name, id: :user_name, placeholder: true,
+            required: true
+          %>
+        </div>
 
-    <%= form.text_field :name, id: :user_name, class: 'offset-for-icon', autofocus:true, placeholder: true %>
-  </div>
+        <div class="field">
+          <%= form.label :last_name %>
 
-  <div class="field">
-    <%= form.label :last_name %>
+          <%= form.text_field :last_name, id: :user_last_name,
+            placeholder: true, required: true
+          %>
+        </div>
 
-    <span class="input-icon"><%= fa_icon 'user' %></span>
+        <div class="field">
+          <%= form.label :description, t('.profile') %>
 
-    <%= form.text_field :last_name, id: :user_last_name, class: 'offset-for-icon', placeholder: true %>
-  </div>
+          <%= form.text_area :profile, id: :user_description,
+            placeholder: true
+          %>
+        </div>
 
-  <div class="field">
-    <%= label_tag User.human_attribute_name :photo %>
+        <div class="field">
+          <%= form.label :locale %>
 
-    <div id="user-photo-container">
-      <div id="user-photo-wrapper">
-        <%= image_tag user.photo.url, id: 'user-photo' %>
+          <%= form.select :locale,
+            options_for_select(available_locales_options, I18n.locale),
+            required: true,
+            include_blank: t('.select')
+          %>
+        </div>
+
+        <% if @user.new_record? %>
+          <div class="field">
+            <%= form.label :email %>
+
+            <span class="input-icon"><%= fa_icon 'envelope-square' %></span>
+
+            <%= form.text_field :email, id: :user_email,
+              class: 'offset-for-icon', placeholder: true, required: true
+            %>
+          </div>
+
+          <div class="field">
+            <%= form.label :email_confirmation %>
+
+            <span class="input-icon"><%= fa_icon 'envelope-square' %></span>
+
+            <%= form.text_field :email_confirmation,
+              id: :user_email_confirmation, required: true,
+              class: 'offset-for-icon', placeholder: true
+            %>
+          </div>
+
+          <div class="field">
+            <%= form.label :password %>
+
+            <span class="input-icon"><%= fa_icon 'lock' %></span>
+
+            <%= form.password_field :password, id: :user_password,
+              class: 'offset-for-icon', required: true,
+              placeholder: true, autocomplete: 'off'
+            %>
+          </div>
+
+          <div class="field">
+            <%= form.label :password_confirmation %>
+
+            <span class="input-icon"><%= fa_icon 'lock' %></span>
+
+            <%= form.password_field :password_confirmation,
+              id: :user_password_confirmation,
+              class: 'offset-for-icon', placeholder: true,
+              autocomplete: 'off', required: true
+            %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="user-photo" data-controller="cropper"
+        data-cropper-height-value="180"
+        data-cropper-width-value="150"
+        data-cropper-global-outlet="#global"
+      >
+        <div class="photo">
+          <%= image_tag user.photo.url, id: 'user-photo',
+            data: { 'cropper-target': 'image' }
+          %>
+        </div>
+
+        <% [:crop_x, :crop_y, :crop_w, :crop_h].each do |attribute| %>
+          <%= form.hidden_field attribute, id: attribute,
+            data: { 'cropper-target': attribute.to_s.camelize(:lower) }
+          %>
+        <% end %>
+
+        <div class="custom-input-file"
+          data-unsupported-photo-type="<%= t '.unsupported_image_type' %>"
+        >
+          <div class="field">
+            <%= form.file_field :photo, id: :user_photo,
+              data: { 'cropper-target': 'fileInput' }
+            %>
+          </div>
+
+          <%= form.label :photo, class: 'button-box' do %>
+            <%= fa_icon 'upload' %> <%= t '.upload_file' %>
+          <% end %>
+        </div>
       </div>
     </div>
 
-    <% [:crop_x, :crop_y, :crop_w, :crop_h].each do |attribute| %>
-      <%= form.hidden_field attribute, id: attribute %>
+    <% unless @user.new_record? %>
+      <div class="sensitive-fields">
+        <div class="field">
+          <%= link_to t('.change_email'), change_email_user_path(@user),
+            data: {
+              action: 'users#changeEmail',
+              'modal-title': t('.change_email')
+            }
+          %>
+        </div>
+
+        <div class="field">
+          <%= link_to t('.change_password'), change_password_user_path(@user) %>
+        </div>
+      </div>
     <% end %>
 
-    <div class="wrapper-custom-input-file" data-unsupported-photo-type="<%= t '.unsupported_image_type' %>">
-      <%= form.file_field :photo, id: :user_photo %>
-
-      <%= form.label :photo, class: 'custom-input-file' do %>
-        <%= fa_icon 'upload' %> <%= t '.upload_file' %>
+    <div class="button-group center">
+      <%= button_tag class: 'button-box', disabled: true,
+        type: @user.new_record? ? :submit : :button,
+        data: { action: 'users#update', 'form-target': 'submit' } do
+      %>
+        <%= fa_icon 'save' %><%= t '.save' %>
       <% end %>
     </div>
-  </div>
-
-  <div class="field">
-    <%= form.label :description, t('.profile') %>
-
-    <%= form.text_area :profile, id: :user_description, class: 'offset-for-icon', rows: 15, placeholder: true %>
-  </div>
-
-  <div class="field">
-    <%= form.label :locale %>
-
-    <%= form.select :locale, options_for_select(available_locales_options, I18n.locale) %>
-  </div>
-
-  <% if user.new_record? %>
-    <div class="field">
-      <%= form.label :email %>
-
-      <span class="input-icon"><%= fa_icon 'envelope-square' %></span>
-
-      <%= form.text_field :email, id: :user_email, class: 'offset-for-icon', placeholder: true %>
-    </div>
-
-    <div class="field">
-      <%= form.label :email_confirmation %>
-
-      <span class="input-icon"><%= fa_icon 'envelope-square' %></span>
-
-      <%= form.text_field :email_confirmation, id: :user_email_confirmation,
-        class: 'offset-for-icon', placeholder: true
-      %>
-    </div>
-
-    <div class="field">
-      <%= form.label :password %>
-
-      <span class="input-icon"><%= fa_icon 'lock' %></span>
-
-      <%= form.password_field :password, id: :user_password, class: 'offset-for-icon',
-        placeholder: true, autocomplete: 'off'
-      %>
-    </div>
-
-    <div class="field">
-      <%= form.label :password_confirmation %>
-
-      <span class="input-icon"><%= fa_icon 'lock' %></span>
-
-      <%= form.password_field :password_confirmation, id: :user_password_confirmation,
-        class: 'offset-for-icon', placeholder: true, autocomplete: 'off'
-      %>
-    </div>
-  <% else %>
-    <div class="field">
-      <%= link_to t('.change_email'), change_email_user_path(@user) %>
-    </div>
-
-    <div class="field">
-      <%= link_to t('.change_password'), change_password_user_path(@user) %>
-    </div>
   <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<%= render 'shared/modal_image_crop' %>
+</div>

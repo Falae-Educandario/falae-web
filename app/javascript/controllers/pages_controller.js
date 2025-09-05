@@ -1,48 +1,268 @@
-import { Controller } from "@hotwired/stimulus"
-import { FetchRequest } from '@rails/request.js'
+import { Controller } from '@hotwired/stimulus';
+import { FetchRequest } from '@rails/request.js';
 
 export default class extends Controller {
-  static targets = ["name", "searchItemForm", "searchResult", "addItemToPageUrl"];
-  static values = { searchUrl: String, addItemToPage: String }
+  static targets = [
+    'itemList', 'form', 'nameInput', 'submitButton',
+    'openSearchItemForm', 'searchResult',
+  ];
+  static outlets = ['global'];
+  static values = { swapItemsPath: String }
 
-  openSearchItemForm() {
-    const clone = this.searchItemFormTarget.cloneNode({ deep: true });
-    const searchFrom = clone.querySelector('.search-form');
-    searchFrom.dataset.controller = 'pages';
-    searchFrom.dataset.action = 'will-paginate:link-clicked->pages#pagination';
-    this.dispatch(
-      "openSearchItemForm",
-        {
-          detail: {
-            title: 'Search Item',
-            content: clone.innerHTML,
+  connect() {
+    const that = this;
+    if (this.hasItemListTarget) {
+      const items = this.itemListTarget.querySelectorAll('.page > .item');
+      let srcDragItem = null;
+      items.forEach(item => {
+        item.addEventListener('dragstart', function(ev) {
+          srcDragItem = this;
+          ev.target.style.opacity = '0.5';
+          ev.dataTransfer.effectAllowed = 'move';
+          ev.dataTransfer.setData('text/html', this.innerHTML);
+        });
+        item.addEventListener('dragenter', function(ev) {
+          if (srcDragItem != this) {
+            const card = ev.target.querySelector('.card');
+            if (card) {
+              card.classList.add('over');
+            }
           }
-        }
-      );
+        });
+        item.addEventListener('dragover', function(ev) {
+          if (srcDragItem != this) {
+            ev.preventDefault()
+            ev.dataTransfer.dropEffect = 'move'
+          }
+          return false;
+        });
+        item.addEventListener('dragleave', function(ev) {
+          if (srcDragItem != this) {
+            const card = this.querySelector('.card');
+            if (card) {
+              card.classList.remove('over');
+            }
+          }
+        });
+        item.addEventListener('drop', async function(ev) {
+          ev.stopPropagation();
+          if (srcDragItem != this) {
+            const card = this.querySelector('.card');
+            await that.swapItems(srcDragItem.dataset.itemId, this.dataset.itemId);
+            if (card) {
+              card.classList.remove('over');
+            }
+          }
+          return false
+        });
+        item.addEventListener('dragend', function(ev) {
+          this.style.opacity = '1';
+        });
+      });
+    }
   }
 
-  pagination(...params) {
-    console.log(params)
+  async new(ev) {
+    ev.preventDefault();
+    const { path, title } = ev.target?.dataset || {};
+    const request = new FetchRequest('get', path);
+    this.globalOutlet.showOverlay();
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+
+    if (response.ok) {
+      const html = await response.html;
+      this.globalOutlet.setModal({ title, content: html });
+      this.globalOutlet.showModal();
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
+  }
+
+  async create(ev) {
+    ev.preventDefault();
+    const formData = new FormData(this.formTarget);
+    const request = new FetchRequest(
+      'post',
+      this.formTarget.getAttribute('action'),
+      {
+        body: formData,
+        responseKind: 'turbo-stream',
+      }
+    );
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+    if (response.ok) {
+      this.globalOutlet.hideOverlay();
+      this.globalOutlet.resetModal();
+      this.globalOutlet.hideModal();
+      await response.renderTurboStream();
+    } else {
+      const errors = await response.json;
+      const fields = this.formTarget.querySelectorAll('.field [required]');
+      fields.forEach(requiredField => requiredField.classList.remove('error'));
+      Object.keys(errors).forEach(field => {
+        const element = this.formTarget.querySelector(`#item_${field}`);
+        element?.classList.add('error');
+      });
+      alert('Somehting went wrong. Try again later.');
+    }
+  }
+
+  async edit(ev) {
+    // TODO: Error if path is not defined?
+    const { path, title } = ev.target?.dataset || {};
+    const request = new FetchRequest('get', path);
+    this.globalOutlet.showOverlay();
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+
+    if (response.ok) {
+      const html = await response.html;
+      this.globalOutlet.setModal({ title, content: html });
+      this.globalOutlet.showModal();
+    } else {
+      alert('Somehting went wrong. Try again later.');
+      this.globalOutlet.hideOverlay();
+    }
+  }
+
+  async update(ev) {
+    // not enable submit if no changes
+    ev.preventDefault();
+    const formData = new FormData(this.formTarget);
+    const request = new FetchRequest(
+      'patch',
+      this.formTarget.getAttribute('action'),
+      {
+        body: formData,
+        responseKind: 'turbo-stream',
+      }
+    );
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+    this.globalOutlet.hideOverlay();
+    this.globalOutlet.resetModal();
+    this.globalOutlet.hideModal();
+    if (response.ok) {
+      await response.renderTurboStream();
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
+  }
+
+  async swapItems(item1, item2) {
+    const request = new FetchRequest(
+      'put',
+      this.swapItemsPathValue,
+      {
+        body: {
+          id_1: item1,
+          id_2: item2,
+        },
+        responseKind: 'turbo-stream',
+      }
+    );
+    this.globalOutlet.showOverlay();
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+    this.globalOutlet.hideOverlay();
+    if (response.ok) {
+      await response.renderTurboStream();
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
+  }
+
+  async openSearchItemForm(ev) {
+    ev.preventDefault();
+    const { path, title } = ev.currentTarget?.dataset || {};
+    const request = new FetchRequest('get', path);
+    this.globalOutlet.showOverlay();
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+
+    if (response.ok) {
+      const html = await response.html;
+      this.globalOutlet.setModal({ title, content: html });
+      this.globalOutlet.showModal();
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
   }
 
   async fetchItems(ev) {
     ev.preventDefault();
-    const offset = ev.target?.dataset?.offset;
+    const { path } = ev.currentTarget?.dataset || {};
     const request = new FetchRequest(
       'get',
-      this.searchUrlValue,
+      path,
       {
         query: {
-          name: this.nameTarget.value,
+          name: this.nameInputTarget.value,
           search: true,
-          ...(offset && { offset })
-        }
+          // ...(offset && { offset }),
+        },
+        responseKind: 'turbo-stream',
       }
     );
     const response = await request.perform()
     if (response.ok) {
-      const html = await response.html;
-      this.searchResultTarget.innerHTML = html;
+      await response.renderTurboStream();
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
+  }
+
+  async addItemToPage(ev) {
+    ev.preventDefault();
+    const formData = new FormData(this.formTarget);
+    const request = new FetchRequest(
+      'post',
+      this.formTarget.getAttribute('action'),
+      {
+        body: formData,
+        responseKind: 'turbo-stream',
+      }
+    );
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+    if (response.ok) {
+      this.globalOutlet.resetModal();
+      this.globalOutlet.hideModal();
+      this.globalOutlet.hideOverlay();
+      await response.renderTurboStream();
+    } else {
+      alert('Somehting went wrong. Try again later.');
+    }
+  }
+
+  async updateItem(ev) {
+    ev.preventDefault();
+    const formData = new FormData(this.formTarget);
+    const request = new FetchRequest(
+      'patch',
+      this.formTarget.getAttribute('action'),
+      {
+        body: formData,
+        responseKind: 'turbo-stream',
+      }
+    );
+    this.globalOutlet.showLoading();
+    const response = await request.perform();
+    this.globalOutlet.hideLoading();
+    if (response.ok) {
+      this.globalOutlet.resetModal();
+      this.globalOutlet.hideModal();
+      this.globalOutlet.hideOverlay();
+      await response.renderTurboStream();
     } else {
       alert('Somehting went wrong. Try again later.');
     }

@@ -1,0 +1,25 @@
+.tab-bar {
+  display: flex;
+  height: 32px;
+}
+.tab-bar .tab {
+  border-bottom: 2px solid #11626B;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  height: 100%;
+  padding: 4px 8px;
+  max-width: 50%;
+}
+.tab-bar .tab.active {
+  border-bottom: none;
+  border-left: 2px solid #11626B;
+  border-right: 2px solid #11626B;
+  border-top: 2px solid #11626B;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+/* .tab-bar .tab:hover:not(.active) {
+  background-color: #11626B40;
+  color: #11626B;
+  cursor: pointer;
+} */

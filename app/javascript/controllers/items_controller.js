@@ -1,15 +1,15 @@
-import { Controller } from "@hotwired/stimulus";
-import { FetchRequest } from "@rails/request.js";
+import { Controller } from '@hotwired/stimulus';
+import { FetchRequest } from '@rails/request.js';
 // import { Turbo } from "@hotwired/turbo";
 
 export default class extends Controller {
   static targets = [
-    "searchArea", "searchResult", "searchInput", "filterButton",
-    "form", "itemsList", "item",
+    'searchArea', 'searchResult', 'searchInput', 'filterButton', 'filterName',
+    'form', 'itemsList', 'item',
   ];
   // TODO: Review values if they are used
   static values = { itemid: Number, userid: Number };
-  static outlets = ["global"]
+  static outlets = ['global'];
 
   connect() {
     if (this.hasSearchInputTarget && this.hasFilterButtonTarget) {
@@ -37,6 +37,7 @@ export default class extends Controller {
     this.globalOutlet.hideLoading();
     this.searchAreaTarget.style.display = 'none';
     this.searchResultTarget.style.display = 'flex';
+    this.filterNameTarget.innerText = this.searchInputTarget.value;
     if (response.ok) {
       await response.renderTurboStream();
     } else {
@@ -57,10 +58,11 @@ export default class extends Controller {
     const response = await request.perform();
     this.globalOutlet.hideOverlay();
     this.globalOutlet.hideLoading();
-    this.searchAreaTarget.style.display = 'flex';
+    this.searchAreaTarget.style.display = null;
     this.searchResultTarget.style.display = 'none';
     if (response.ok) {
       this.searchInputTarget.value = '';
+      this.filterNameTarget.innerText = '';
       this.filterButtonTarget.disabled = true;
       await response.renderTurboStream();
     } else {
@@ -70,7 +72,7 @@ export default class extends Controller {
 
   async new(ev) {
     ev.preventDefault();
-    const path = ev.target?.dataset?.newItemPath;
+    const { path } = ev.target?.dataset || {};
     const request = new FetchRequest('get', path);
     this.globalOutlet.showOverlay();
     this.globalOutlet.showLoading();
@@ -100,20 +102,26 @@ export default class extends Controller {
     this.globalOutlet.showLoading();
     const response = await request.perform();
     this.globalOutlet.hideLoading();
-    this.globalOutlet.hideOverlay();
-    this.globalOutlet.resetModal();
-    this.globalOutlet.hideModal();
     if (response.ok) {
+      this.globalOutlet.hideOverlay();
+      this.globalOutlet.resetModal();
+      this.globalOutlet.hideModal();
       await response.renderTurboStream();
-
     } else {
+      const errors = await response.json;
+      const fields = this.formTarget.querySelectorAll('.field [required]');
+      fields.forEach(requiredField => requiredField.classList.remove('error'));
+      Object.keys(errors).forEach(field => {
+        const element = this.formTarget.querySelector(`#item_${field}`);
+        element?.classList.add('error');
+      });
       alert('Somehting went wrong. Try again later.');
     }
   }
 
   async show(ev) {
     // TODO: Error if path is not defined?
-    const path = ev.currentTarget?.dataset?.showItemPath;
+    const { path } = ev.currentTarget?.dataset || {};
     const request = new FetchRequest('get', path);
     this.globalOutlet.showOverlay();
     this.globalOutlet.showLoading();
@@ -163,7 +171,6 @@ export default class extends Controller {
       return;
     }
     const path = ev.currentTarget?.dataset?.path;
-    console.log(`WHO AM I: ${ev.target}`);
     const request = new FetchRequest(
       'delete',
       path,
@@ -179,13 +186,8 @@ export default class extends Controller {
     this.globalOutlet.hideModal();
     if (response.ok) {
       await response.renderTurboStream();
-
     } else {
       alert('Somehting went wrong. Try again later.');
     }
   }
-
-  // updateItemsList({ detail: { content }}) {
-  //   this.itemslistTarget.innerHtml = content;
-  // }
 }

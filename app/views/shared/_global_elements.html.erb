@@ -9,7 +9,7 @@
       </a>
 
       <p class="title" data-global-target="modalTitle"></p>
-      <div class="content" data-global-target="modalContent"></div>
+      <div class="modal-content" data-global-target="modalContent"></div>
     </div>
   </div>
 
@@ -21,7 +21,7 @@
       </a>
 
       <p class="title">Crop Image</p>
-      <div class="content">
+      <div class="modal-content">
         <div class="truecropper" >
           <img src="" id="image-cropper" accepts="image/*"
             data-global-target="imageTag"
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="button-group">
+      <div class="button-group center">
         <%= button_tag class: 'button-box', type: :button,
           data: { action: "global#confirmImageCropper" } do
         %>

@@ -1,13 +1,14 @@
-<div class="list">
-  <strong><%= Page.model_name.human(count: 2) %>:</strong>
+<p>
+  <strong><%= Page.human_attribute_name :name %>:</strong>
+  <%= @page.name %>
+</p>
 
-  <% if @pages.present? %>
-    <ul>
-      <% @pages.each do |page| %>
-        <li><%= link_to page.name, user_spreadsheet_page_path(@user, @spreadsheet, page) %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p><%= t '.none' %></p>
-  <% end %>
-</div>
+<p>
+  <strong><%= Page.human_attribute_name :columns %>:</strong>
+  <%= @page.columns %>
+</p>
+
+<p>
+  <strong><%= Page.human_attribute_name :rows %>:</strong>
+  <%= @page.rows %>
+</p>

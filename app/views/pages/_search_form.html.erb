@@ -1,0 +1,30 @@
+<div class="search-item">
+  <div class="form-box" data-controller="pages"
+    data-pages-global-outlet="#global"
+  >
+    <div class="field">
+      <%= label_tag :name, Item.human_attribute_name(:name) %>
+      <%= text_field_tag :name, nil, required: true,
+        data: { 'pages-target' => 'nameInput' }
+      %>
+    </div>
+
+    <div class="button-group center">
+      <%= button_tag type: :submit, name: :search,
+        data: {
+          action: 'pages#fetchItems',
+          path: search_items_user_path(@user, params: {
+            page_id: @page,
+            spreadsheet_id: @spreadsheet,
+          })
+        } do
+      %>
+        <%= fa_icon 'search'%><%= t '.search' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="search-items-result">
+    <%= turbo_frame_tag 'search-items-result', "data-autoscroll-behavior": "smooth" %>
+  </div>
+</div>

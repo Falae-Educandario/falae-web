@@ -1,12 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static targets = [ "name", "output", "overlay" ];
+
   connect() {
     this.element.textContent = "Hello World!"
   }
-
-  // added for testing
-  static targets = [ "name", "output", "overlay" ]
 
   greet() {
     this.overlayTarget.style.color = 'red';

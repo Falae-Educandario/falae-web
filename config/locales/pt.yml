@@ -296,6 +296,7 @@ pt:
       new: Criar Item
     show:
       back: Voltar
+      destroy_confirm: Remover Item
       destroy: Apagar
       destroy_alert:
         one: "Este item está presente na página: %{pages}. Ao removê-lo, também irá removê-lo da página."
@@ -305,6 +306,8 @@ pt:
         one: "Este item está presente na página: %{pages}. Ao editá-lo, as mudanças serão refletidas nela."
         other: "Este item está presente nas páginas: %{pages}. Ao editá-lo, as mudanças serão refletidas em todas elas."
       print: Imprimir
+    card:
+      search_item_title: Procurar Item
     edit:
       cancel: Cancelar
       edit: Editar
@@ -321,7 +324,7 @@ pt:
       add_item:
         title: Adicionar Item
         search: Procurar
-    search_result:
+    search_items_result:
       add_to_page: Adicionar a página
       no_item_found: Nenhum item encontrado.
   layouts:
@@ -396,19 +399,31 @@ pt:
       format:
         delimiter: "."
   pages:
+    index_actions:
+      import: Importar
+      new: Criar Página
+    show_actions:
+      back: Voltar
+      destroy: Apagar
+      destroy_alert: Apagar esta página também apagará todos seus pictogramas.
+      edit: Editar
+      export: Exportar
+      print: Imprimir
+    list:
+      none: Você ainda não possui página.
     new:
       cancel: Cancelar
       new: Criar Página
+    form:
+      create: Criar
+      save: Salvar
+    search_form:
+      search: Procurar
+      add_to_page: Adicionar a página
     create:
       notice: Página criada com sucesso.
     show:
-      back: Voltar
-      destroy_alert: Apagar esta página também apagará todos seus pictogramas.
-      destroy: Apagar
-      edit: Editar
-      export: Exportar
       mobile_view: Visualização de dispositivo
-      print: Imprimir
     edit:
       cancel: Cancelar
       edit: Editar
@@ -416,7 +431,7 @@ pt:
       notice: Página atualizada com sucesso.
     destroy:
       notice: Página apagada com sucesso.
-    page:
+    page_deprecated:
       none: Você ainda não possui página nesta prancha.
     items:
       edit: Editar
@@ -454,6 +469,7 @@ pt:
     index:
       import: Importar
       new: Criar Prancha
+    list:
       none: Você ainda não possui nenhuma prancha.
     new:
       cancel: Cancelar
@@ -469,9 +485,13 @@ pt:
       new_page: Criar Página
       no_initial_page: '** Página inicial não definida **'
       destroy_alert: Apagar esta prancha também apagará todas suas páginas e itens.
+    spreadsheet:
+      no_page: '** Esta prancha não possui páginas. **'
     edit:
       cancel: Cancelar
       edit: Editar
+    form:
+      save: Salvar
     update:
       notice: Prancha atualizada com sucesso.
     destroy:

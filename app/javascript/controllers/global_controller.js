@@ -55,7 +55,7 @@ export default class extends Controller {
     this.cropperCancelCallback = onCancel;
     this.cropperConfirmCallback = onConfirm;
 
-    this.hideModal();
+    // this.hideModal();
     const opts = {
       allowFlip: false,
       allowNewSelection: false,
@@ -72,8 +72,9 @@ export default class extends Controller {
   }
   closeImageCropper() {
     this.imageCropperTarget.style.display = 'none';
+    this.overlayTarget.style.display = 'none';
     this.cropper.destroy();
-    this.showModal();
+    // this.showModal();
   }
   cancelImageCropper() {
     this.cropperCancelCallback();

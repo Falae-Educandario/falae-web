@@ -13,15 +13,17 @@
 }
 .items .actions-bar input[type=text] {
   background-color: white;
-  border-radius: 0.25em;
-  border: 0.125em solid #AAA;
+  border-radius: 4px;
+  border: 1px solid #AAA;
   box-sizing: border-box;
   color: #008383;
+  margin: 0;
   outline: none;
   padding: 0.5em;
+  width: unset;
 }
 .items .actions-bar input[type=text]:focus {
-  box-shadow: 0 0 0.25em 0.125px #008383;
+  box-shadow: 0 0 4px 0.125px #008383;
 }
 
 .items .items-list .items-list-item {
@@ -44,7 +46,6 @@
   box-sizing: border-box;
   color: #EF4E22;
   cursor: pointer;
-  /* font-size: 0; */
   height: 0;
   left: 4px;
   line-height: 1.5;
@@ -67,7 +68,9 @@
   top: -6px;
   width: 24px;
 }
-.items .items-list .items-list-item a, .items .items-list .items-list-item a:active, .items .items-list .items-list-item a:focus {
+.items .items-list .items-list-item a,
+.items .items-list .items-list-item a:active,
+.items .items-list .items-list-item a:focus {
   outline: none;
 }
 .items .items-list .items-list-item .items-list-item-name {
@@ -121,14 +124,13 @@
 .items #item-image-container #item-image-wrapper #item-image {
   height: 150px;
   width: 150px;
-}
+}/* */
 
 
 /* RAILS 8 MIGRATION - New styles */
 .items .items-list {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 }
 
 .card-button { /* Add button item in page item list */
@@ -144,6 +146,10 @@
   overflow: visible;
   padding: 0;
   width: auto;
+}
+
+.card-wrapper {
+  display: inline-block;
 }
 
 .card-button:hover {
@@ -174,6 +180,14 @@
   height: 20%;
 }
 
+.card .item .name div {
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 90%;
+}
+
 .card .item .image {
   height: 80%;
 }
@@ -197,56 +211,12 @@
   width: 164px;
 }
 
-/* Item - add item used in item list of page in boards */
-#add-item-button .card {
-  display: flex;
-}
-#add-item-button .card > button {
-  background-color: white;
+.search-items-result .fields.private input[type="text"],
+.search-items-result .fields.private select,
+.search-items-result .fields.private select:disabled {
+  appearance: none;
   border: none;
-  color: #606060;
-  font-size: 48px;
-  padding: 0;
-  width: 100%;
+  cursor: unset;
+  font-size: 14px;
+  padding: 0 0 8px 0;
 }
-#add-item-button .card > button:hover {
-  color: #008383;
-  cursor: pointer;
-}
-#add-item-button .card > button:focus {
-  outline: none;
-}
-/* end */
-
-/* Overlay, Form, Loading */
-/* .items .overlay {
-  background-color: rgba(0, 0, 0, 0.25);
-  bottom: 0;
-  display: none;
-  left: 0;
-  overflow: hidden;
-  position: fixed;
-  right: 0;
-  top: 0;
-}
-
-.items .modal {
-  bottom: 0;
-  display: none;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-}
-
-.items .loading {
-  align-items: center;
-  bottom: 0;
-  color: #E8E8E8;
-  display: none;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-} */

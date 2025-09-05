@@ -1,0 +1,10 @@
+<%= turbo_frame_tag 'search-items-result' do %>
+  <%# Used in boards/pages for now %>
+  <%= render 'items/search_items_result',
+    items: items,
+    paginate: true,
+    name: local_assigns[:name],
+    page: local_assigns[:page],
+    spreadsheet: local_assigns[:spreadsheet]
+  %>
+<% end %>

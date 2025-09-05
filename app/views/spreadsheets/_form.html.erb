@@ -1,19 +1,37 @@
-<%= form_with(model: [@user, spreadsheet], local: true) do |form| %>
+<%= form_with(model: [@user, spreadsheet],
+  data: {'boards-target' => 'form'}) do |form|
+%>
   <div class="field">
     <%= form.label :name %>
 
-    <%= form.text_field :name, id: :spreadsheet_name, autofocus: true %>
+    <%= form.text_field :name, id: :spreadsheet_name, autofocus: true,
+      required: true, data: { 'boards-target': :nameInput }
+    %>
   </div>
 
   <% unless spreadsheet.new_record? %>
     <div class="field">
       <%= form.label :initial_page %>
 
-      <%= form.select :initial_page, options_for_select(select_pages_names_options, spreadsheet.initial_page) %>
+      <%= form.select :initial_page,
+        options_for_select(
+          select_pages_names_options,
+          spreadsheet.initial_page
+        ),
+        {},
+        disabled: true
+      %>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.button :submit, name: :save, disabled: true,
+      data: {
+        action: "boards##{spreadsheet.new_record? ? 'create' : 'update'}",
+        'boards-target': 'submitButton'
+      } do
+    %>
+      <%= fa_icon 'floppy-o' %><%= t '.save' %>
+    <% end %>
   </div>
 <% end %>

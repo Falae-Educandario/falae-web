@@ -1,0 +1,40 @@
+<div class="form-box" data-controller="users"
+  data-users-global-outlet="#global"
+>
+  <%= form_with model: @user, url: update_email_user_path(@user),
+      data: { controller: 'form' } do |form| %>
+    <div class="field">
+      <%= form.label :email %>
+
+      <span class="input-icon"><%= fa_icon 'envelope-square' %></span>
+
+      <%= form.text_field :email, id: :user_email, class: 'offset-for-icon',
+        placeholder: true, autofocus: true, required: true
+      %>
+    </div>
+
+    <div class="field">
+      <%= form.label :email_confirmation %>
+
+      <span class="input-icon"><%= fa_icon 'envelope-square' %></span>
+
+      <%= form.text_field :email_confirmation, id: :user_email_confirmation,
+        class: 'offset-for-icon', placeholder: true, required: true
+      %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password %>
+
+      <span class="input-icon"><%= fa_icon 'lock' %></span>
+
+      <%= form.password_field :password, id: :user_password, class: 'offset-for-icon',
+        placeholder: true, autocomplete: 'off', required: true
+      %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit data: { action: 'users#updateEmail', 'form-target': 'submit' } %>
+    </div>
+  <% end %>
+</div>

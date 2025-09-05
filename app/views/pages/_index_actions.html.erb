@@ -1,0 +1,17 @@
+<div class="button-group">
+  <%= link_to user_spreadsheet_import_page_path(@user, @spreadsheet),
+    class: 'button-box' do
+  %>
+    <%= fa_icon 'download' %><%= t '.import' %>
+  <% end %>
+
+  <%= button_tag class: 'button-box', type: :button,
+    data: {
+      action: 'pages#new',
+      path: new_user_spreadsheet_page_path(@user, @spreadsheet),
+      title: t('.new')
+    } do
+  %>
+    <%= fa_icon 'plus-circle' %><%= t '.new' %>
+  <% end %>
+</div>

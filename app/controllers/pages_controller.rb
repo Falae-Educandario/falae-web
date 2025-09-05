@@ -32,10 +32,12 @@ class PagesController < ApplicationController
   # GET /pages/new
   def new
     @page = @spreadsheet.pages.new
+    render partial: 'form', locals: { page: @page }
   end
 
   # GET /pages/1/edit
   def edit
+    render partial: 'form', locals: { page: @page }
   end
 
   # POST /pages
@@ -45,8 +47,10 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.save
+        @pages = @spreadsheet.pages
         format.html { redirect_to [@user, @spreadsheet, @page], notice: t('.notice') }
         format.json { render :show, status: :created, location: @page }
+        format.turbo_stream { render :index }
       else
         format.html { render :new }
         format.json { render json: @page.errors, status: :unprocessable_entity }
@@ -61,6 +65,9 @@ class PagesController < ApplicationController
       if @page.update(page_params)
         format.html { redirect_to [@user, @spreadsheet, @page], notice: t('.notice') }
         format.json { render :show, status: :ok, location: @page }
+        format.turbo_stream {
+          render :page, locals: { page: @page }
+        }
       else
         format.html { render :edit }
         format.json { render json: @page.errors, status: :unprocessable_entity }
@@ -80,24 +87,13 @@ class PagesController < ApplicationController
 
   # TODO: Notify on error
   # GET
-  def add_item
+  def search_item
+    render partial: 'search_form'
   end
 
-  # TODO: review it!
-  # GET
-  def search_item
-    items = if params[:search] && params[:name].present?
-      name = params[:name]
-      private_items = @user.find_items_like_by(name: name)
-      pictograms = Pictogram
-        .find_like_by_and_locale(image_file_name: name, locale: I18n.locale)
-      private_items + pictograms.map(&:generate_item)
-    else
-      []
-    end
-    items_paginated = items.paginate page: params[:offset], per_page: 2
-    render partial: 'pages/search_result_v2', locals: { items: items_paginated }
-  end
+  # def search_items
+  #   render partial: 'search_form'
+  # end
 
   # POST
   def add_to_page
@@ -109,7 +105,8 @@ class PagesController < ApplicationController
       @page.items.create params
     end
     @page.reload
-    render :update_item
+
+    render :update_items
   end
 
   # GET
@@ -163,9 +160,16 @@ class PagesController < ApplicationController
 
   # PUT
   def swap_items
-    # TODO: check if @page has items with id_1 and id_2
-    @page.swap_items params[:id_1], params[:id_2]
-    render :update_items_list
+    page_has_items = @page.items
+        .where(id: [params[:id_1], params[:id_2]])
+        # TODO: check error using .count instead of length
+        .length == 2
+    if page_has_items
+      @page.swap_items params[:id_1], params[:id_2]
+      render :update_items
+    else
+      render json: {}, status: :unprocessable_entity
+    end
   end
   # END TODO: Notify on error
 

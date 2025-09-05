@@ -1,31 +1,63 @@
-.user .user-photo {
-  border-radius: 4px;
+.user {
+  margin: 0 16px;
+}
+
+.user .form {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.user .form-box .form {
+  gap: unset;
+}
+
+.user .form-box .form .user-photo{
+  margin: unset;
+  margin-top: 40px;
+}
+
+.user form .fields {
+  width: 304px;
+}
+
+.user .form-box {
+  width: 540px;
+}
+
+.user .form-box .fields {
+  width: 364px;
+}
+
+.user-photo {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: auto;
+}
+
+.photo {
   border: 2px solid #11626B;
-  float: left;
   height: 180px;
-  margin-right: 20px;
   max-height: 180px;
   max-width: 150px;
   width: 150px;
 }
-.user .user-photo img {
+
+.photo > img {
   height: 100%;
   width: 100%;
 }
-.user #user-photo-container {
-  text-align: center;
+
+.custom-input-file .field {
+  display: none;
 }
-.user #user-photo-container #user-photo-wrapper {
-  border-radius: 4px;
-  border: 2px solid #AAA;
+
+.custom-input-file > .button-box {
   display: inline-block;
-  height: 180px;
-  max-height: 184px;
-  max-width: 154px;
-  overflow: hidden;
-  width: 150px;
 }
-.user #user-photo-container #user-photo-wrapper #user-photo {
-  height: 180px;
-  width: 150px;
+
+.sensitive-fields {
+  margin-top: 24px;
 }

@@ -1,0 +1,49 @@
+<div class="form-box"
+  data-controller="boards form"
+  data-boards-global-outlet="#global"
+>
+  <%= form_with(model: [@user, spreadsheet],
+    data: {'form-target' => 'form'}) do |form|
+  %>
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name, id: :spreadsheet_name, autofocus: true,
+        required: true
+      %>
+    </div>
+
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name, id: :spreadsheet_description,
+        required: true
+      %>
+    </div>
+
+    <% unless spreadsheet.new_record? %>
+      <div class="field">
+        <%= form.label :initial_page %>
+
+        <%= form.select :initial_page,
+          options_for_select(
+            select_pages_names_options,
+            spreadsheet.initial_page
+          ),
+          {},
+          disabled: true
+        %>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= form.button :submit, name: :save, disabled: true,
+        data: {
+          action: 'boards#hideModal',
+          'form-target': 'submit',
+        } do
+      %>
+        <%= fa_icon 'floppy-o' %><%= t '.save' %>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>

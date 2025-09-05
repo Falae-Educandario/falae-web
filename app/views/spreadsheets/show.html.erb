@@ -1,47 +1,60 @@
-<div class="spreadsheet">
-  <p id="notice"><%= notice %></p>
+<%= turbo_frame_tag 'boards-pages' do %>
+  <div class="spreadsheet" data-controller="boards"
+    data-boards-global-outlet="#global"
+  >
+    <div class="button-group">
+      <%= link_to user_spreadsheets_path(@user), class: 'button-box',
+        data: { turbo_action: 'advance' } do
+      %>
+        <%= fa_icon 'arrow-left' %><%= t '.back' %>
+      <% end %>
 
-  <%= link_to user_spreadsheet_path(@user, @spreadsheet), class: 'button-box destroy',
-    data: {turbo_method: :delete, turbo_confirm: t('.destroy_alert')} do
-  %>
-    <%= fa_icon 'trash-o' %><%= t '.destroy' %>
-  <% end %>
+      <%= link_to user_spreadsheet_export_path(@user, @spreadsheet),
+        class: 'button-box' do %>
+        <%= fa_icon 'upload' %><%= t '.export' %>
+      <% end %>
 
-  <%= link_to edit_user_spreadsheet_path(@user, @spreadsheet), class: 'button-box' do %>
-    <%= fa_icon 'edit' %><%= t '.edit' %>
-  <% end %>
+      <%= button_tag class: 'button-box', type: :button,
+        data: {
+          action: 'boards#edit',
+          path: edit_user_spreadsheet_path(@user, @spreadsheet),
+          title: t('.edit')
+        } do
+      %>
+        <%= fa_icon 'edit' %><%= t '.edit' %>
+      <% end %>
 
-  <%= link_to user_spreadsheets_path(@user), class: 'button-box' do %>
-    <%= fa_icon 'arrow-left' %><%= t '.back' %>
-  <% end %>
+      <%= link_to user_spreadsheet_path(@user, @spreadsheet),
+        class: 'button-box destroy',
+        data: {
+          turbo_confirm: t('.destroy_alert'),
+          turbo_method: :delete,
+          turbo_action: 'advance'
+        } do
+      %>
+        <%= fa_icon 'trash-o' %><%= t '.destroy' %>
+      <% end %>
+    </div>
 
-  <%= link_to user_spreadsheet_export_path(@user, @spreadsheet),
-    class: 'button-box', remote: true do %>
-    <%= fa_icon 'upload' %><%= t '.export' %>
-  <% end %>
-
-  <p>
-    <strong><%= t Spreadsheet.human_attribute_name :name %>:</strong>
-    <%= @spreadsheet.name %>
-  </p>
-
-  <p>
-    <strong><%= t Spreadsheet.human_attribute_name :initial_page %>:</strong>
-
-    <% if @spreadsheet.initial_page.present? %>
-      <span class="initial-page-name"><%= @spreadsheet.initial_page %></span>
-    <% else %>
-      <span class="initial-page-name no-initial-page"><%= t '.no_initial_page' %></span>
+    <%= turbo_frame_tag 'board' do %>
+      <%= render partial: 'spreadsheet' %>
     <% end %>
-  </p>
 
-  <%= link_to user_spreadsheet_import_page_path(@user, @spreadsheet), class: 'button-box', remote: true do %>
-    <%= fa_icon 'download' %><%= t '.import' %>
-  <% end %>
+    <%# TODO: Move these buttons to pages show %>
+    <%
+=begin%>
+ <div class="button-group right">
+      <%= link_to user_spreadsheet_import_page_path(@user, @spreadsheet), class: 'button-box', remote: true do %>
+        <%= fa_icon 'download' %><%= t '.import' %>
+      <% end %>
 
-  <%= link_to new_user_spreadsheet_page_path(@user, @spreadsheet), class: 'button-box' do %>
-    <%= fa_icon 'plus-circle' %><%= t '.new_page' %>
-  <% end %>
+      <%= link_to new_user_spreadsheet_page_path(@user, @spreadsheet), class: 'button-box' do %>
+        <%= fa_icon 'plus-circle' %><%= t '.new_page' %>
+      <% end %>
+    </div>
+<%
+=end%>
 
-  <%= render 'pages/page' %>
-</div>
+    <%= render 'pages/index' %>
+  </div>
+<% end %>

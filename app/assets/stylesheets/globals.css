@@ -52,9 +52,12 @@
 #global .modal .container .close:hover .hover {
   display: inline-block;
 }
+#global .modal .container :disabled {
+  cursor: not-allowed;
+}
 
 
-#global .modal.image-cropper .container .content {
+#global .modal.image-cropper .container .modal-content {
   display: flex;
   justify-content: center;
 }

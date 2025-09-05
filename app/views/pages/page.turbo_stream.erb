@@ -1,0 +1,7 @@
+<%= turbo_stream.update 'page' do %>
+  <%= render partial: 'pages/page' %>
+<% end %>
+
+<%= turbo_stream.update 'page-items-list' do %>
+  <%= render partial: 'pages/items_list' %>
+<% end %>
