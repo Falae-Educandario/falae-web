@@ -13,11 +13,11 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   #root 'sessions#new'
-  root 'header_pages#home'
-  get '/home', to: 'header_pages#home'
-  get '/about', to: 'header_pages#about'
-  get '/contact', to: 'header_pages#contact'
-  get '/privacy', to: 'header_pages#privacy'
+  root 'headers#home'
+  get '/home', to: 'headers#home'
+  get '/about', to: 'headers#about'
+  get '/contact', to: 'headers#contact'
+  get '/privacy', to: 'headers#privacy'
   post '/csp-report', to: 'csp_reports#create'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

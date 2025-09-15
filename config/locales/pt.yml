@@ -233,7 +233,7 @@ pt:
       create: Criar
       submit: Salvar
       update: Atualizar
-  header_pages:
+  headers:
     about:
       title: 'O Aplicativo'
       text_p1: '<b>Falaê<sup>&reg;</sup></b> é um aplicativo Android desenvolvido por voluntários da HP do Brasil R&D em parceria com a ONG Educandário - Centro de Reabilitação São João Batista. É um aplicativo de Comunicação Alternativa, que permite pessoas com dificuldades de fala e mobilidade se comunicarem utilizando pictogramas (imagens ou símbolos) que representam palavras (verbos, substantivos, adjetivos etc).'

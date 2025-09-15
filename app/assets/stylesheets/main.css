@@ -373,13 +373,14 @@ input.offset-for-icon {
   justify-content: center;
 }
 input[type=submit], button[type=submit] {
+  align-items: center;
   background-color: #008383;
   border-radius: 4px;
   border: none;
   box-shadow: 0 0 4px 0.125px #008383;
   color: white;
-  display: block;
-  padding: 8px 32px;
+  display: flex;
+  padding: 8px 16px;
 }
 button[type=submit].destroy {
   background-color: #EF4E22;

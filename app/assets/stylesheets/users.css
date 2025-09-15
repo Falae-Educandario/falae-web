@@ -31,6 +31,7 @@
 
 .user-photo {
   align-items: center;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   gap: 8px;

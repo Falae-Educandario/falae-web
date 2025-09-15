@@ -3,13 +3,13 @@
 </div>
 
 <div class="links">
-  <%= link_to home, class: "#{:active if home_page?}" do %>
+  <%= link_to home, class: "#{:active if home?}" do %>
     <%= fa_icon 'home' %> <%= t '.home' %>
-  <% end %><%= link_to about_path, class: "#{:active if about_page?}" do %>
+  <% end %><%= link_to about_path, class: "#{:active if about?}" do %>
     <%= fa_icon 'info-circle' %> <%= t '.about' %>
-  <% end %><%= link_to contact_path, class: "#{:active if contact_page?}" do %>
+  <% end %><%= link_to contact_path, class: "#{:active if contact?}" do %>
     <%= fa_icon 'envelope' %> <%= t '.contact' %>
-  <% end %><%= link_to privacy_path, class: "#{:active if privacy_page?}" do %>
+  <% end %><%= link_to privacy_path, class: "#{:active if privacy?}" do %>
     <%= fa_icon 'handshake-o' %> <%= t '.privacy' %>
   <% end %>
 </div>
@@ -17,18 +17,24 @@
 <div class="session">
   <% if logged_in? %>
     <span class="welcome">
-      <%= t '.welcome' %>, <%= link_to current_user.name, user_path(current_user), class: 'user-name' %>!
+      <%= t '.welcome' %>, <%= link_to current_user.name,
+        user_path(current_user), class: 'user-name'
+      %>!
     </span>
 
     <span class="logout"><%= link_to logout_path, method: :delete do %>
       <%= fa_icon 'sign-out' %> <%= t '.log_out' %>
     <% end %></span>
   <% else %>
-    <%= link_to login_path, class: "#{:active if controller_name.in? 'sessions'}" do %>
+    <%= link_to login_path,
+      class: "#{:active if controller_name.in? 'sessions'}" do
+    %>
       <%= fa_icon 'sign-in' %> <%= t '.log_in' %>
     <% end %>
 
-    <%= link_to new_user_path, class: "#{:active if controller_name.in? 'users'}" do %>
+    <%= link_to new_user_path,
+      class: "#{:active if controller_name.in? 'users'}" do
+    %>
       <%= fa_icon 'user-plus' %> <%= t '.register' %>
     <% end %>
   <% end %>

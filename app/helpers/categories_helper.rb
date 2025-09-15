@@ -12,6 +12,6 @@ module CategoriesHelper
   end
 
   def css_class_name(category)
-    CategoriesHelper.css_class_name(category || Category.default)
+    CategoriesHelper.css_class_name(category)
   end
 end

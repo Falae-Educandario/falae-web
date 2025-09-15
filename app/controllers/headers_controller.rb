@@ -1,4 +1,4 @@
-class HeaderPagesController < ApplicationController
+class HeadersController < ApplicationController
   before_action :session_expired?
 
   def home

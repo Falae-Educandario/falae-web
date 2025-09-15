@@ -1,4 +1,4 @@
-module HeaderPagesHelper
+module HeadersHelper
   def home
     if current_user
       user_spreadsheets_path current_user
@@ -7,23 +7,23 @@ module HeaderPagesHelper
     end
   end
 
-  def home_page?
+  def home?
     current_page? home
   end
 
-  def about_page?
+  def about?
     current_page? about_path
   end
 
-  def contact_page?
+  def contact?
     current_page? contact_path
   end
 
-  def privacy_page?
+  def privacy?
     current_page? privacy_path
   end
 
-  def header_pages?
-    home_page? || about_page? || contact_page? || privacy_page?
+  def headers?
+    home? || about? || contact? || privacy?
   end
 end

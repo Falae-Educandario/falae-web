@@ -262,7 +262,7 @@ en:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
-  header_pages:
+  headers:
     about:
       title: 'The App'
       text_p1: '<b>Falaê<sup>&reg;</sup></b> is an Android application developed by HP volunteers from Brazil R&D in partnership with the NGO Educandário – Centro de Reabilitação São João Batista. It is an Alternative Communication app, that allows people with speech and mobility impairments to communicate by using pictograms (images or symbols) that represent words (verbs, nouns, adjectives etc).'
